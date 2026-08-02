@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application — Their Principles</title>
+<meta name="description" content="Apply for membership to Their Principles — Miami's private community for ambitious 18–25 year-olds. By application only.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<nav class="tp-nav" id="tpNav" data-force-solid aria-label="Main">
+  <a href="index.html" class="tp-nav-mark tp-brandmark">Their Principles</a>
+  <div class="tp-nav-links">
+    <a href="index.html#story">Story</a>
+    <a href="index.html#experiences">Experiences</a>
+    <a href="index.html#calendar">Calendar</a>
+    <a href="mentors.html">Mentors</a>
+    <a href="application.html" aria-current="page">Membership</a>
+  </div>
+  <a href="application.html" class="tp-nav-cta tp-nav-cta-desktop">Secure Your Place</a>
+  <button class="tp-nav-toggle" id="tpNavToggle" aria-expanded="false" aria-controls="tpNavOverlay">Menu</button>
+</nav>
+
+<div class="tp-nav-overlay" id="tpNavOverlay">
+  <a href="index.html#story">Story</a>
+  <a href="index.html#experiences">Experiences</a>
+  <a href="index.html#calendar">Calendar</a>
+  <a href="mentors.html">Mentors</a>
+  <a href="application.html">Membership</a>
+</div>
+
+<header class="tp-page-head">
+  <div class="tp-wrap">
+    <div class="tp-eyebrow">Membership Is by Application Only</div>
+    <h1>Application</h1>
+    <p class="tp-lede">Every application is read personally. If it's a fit, you'll hear from us directly.</p>
+  </div>
+</header>
+
+<section class="tp-section-tight">
+  <div class="tp-wrap tp-app-layout">
+
+    <div>
+      <div class="tp-app-facts">
+        <div class="tp-app-fact tp-reveal">
+          <h3>Eligibility</h3>
+          <p>Membership is for 18 to 25 year olds — and only 18 to 25 year olds. That boundary is the community; it is not flexible.</p>
+        </div>
+        <div class="tp-app-fact tp-reveal">
+          <h3>The process</h3>
+          <p>Submit the application. We review it personally, and if it's a fit we reach out to talk. A few seats at each gathering are held for new applicants, so you may meet the room before you join it.</p>
+        </div>
+        <div class="tp-app-fact tp-reveal">
+          <h3>What's expected</h3>
+          <p>Show up, in person. Bring real goals. Hold the standard for the people around you the way they hold it for you.</p>
+        </div>
+        <div class="tp-app-fact tp-reveal">
+          <h3>Two ways in</h3>
+          <p>If a current member referred you or you hold an invitation code, use the invitation path. If not, introduce yourself — the second door leads to the same room.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tp-app-form-card">
+      <div class="tp-mode-switch" role="group" aria-label="Application type">
+        <button type="button" data-mode="invited" aria-pressed="false">With Invitation</button>
+        <button type="button" data-mode="general" aria-pressed="false">Introduce Yourself</button>
+      </div>
+
+      <form id="tpApplicationForm" novalidate>
+        <div class="tp-field" id="tpInviteCodeField" hidden>
+          <label for="appInviteCode">Invitation code</label>
+          <input type="text" id="appInviteCode" name="invitation_code" autocomplete="off">
+          <div class="tp-field-error">Please enter your invitation code.</div>
+        </div>
+        <div class="tp-field">
+          <label for="appName">Full name</label>
+          <input type="text" id="appName" name="name" data-required autocomplete="name">
+          <div class="tp-field-error">Please tell us your name.</div>
+        </div>
+        <div class="tp-field">
+          <label for="appEmail">Email</label>
+          <input type="email" id="appEmail" name="email" data-required autocomplete="email">
+          <div class="tp-field-error">Please enter a valid email.</div>
+        </div>
+        <div class="tp-field">
+          <label for="appAge">Age</label>
+          <input type="number" id="appAge" name="age" min="18" max="25" data-required inputmode="numeric">
+          <div class="tp-field-error">Membership is for 18–25 year-olds.</div>
+        </div>
+        <div class="tp-field">
+          <label for="appSocial">Instagram or LinkedIn</label>
+          <input type="text" id="appSocial" name="social" data-required autocomplete="off">
+          <div class="tp-field-error">Please share a way to find you.</div>
+        </div>
+        <div class="tp-field">
+          <label for="appWhy">What are you building, and why Their Principles?</label>
+          <textarea id="appWhy" name="why" rows="3" data-required></textarea>
+          <div class="tp-field-error">Tell us a little about yourself.</div>
+        </div>
+        <button type="submit" class="tp-btn tp-btn-primary" style="width:100%;">Submit Application</button>
+        <p class="tp-privacy-note">Your application is read only by the Their Principles team and is never shared.</p>
+      </form>
+      <div class="tp-form-success">Thank you — your application has been received. We review every application personally and will be in touch.</div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="tp-footer">
+  <div class="tp-wrap">
+    <div class="tp-brandmark">Their Principles</div>
+    <div class="tp-footer-meta">For the Young Ambitious <span>·</span> Miami <span>·</span> Est. 2026</div>
+    <div class="tp-footer-links">
+      <a href="mailto:theirprinciples@gmail.com">theirprinciples@gmail.com</a>
+      <a href="contact.html">Contact</a>
+      <a href="mentors.html">Mentors</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/navigation.js" defer></script>
+<script src="js/forms.js" defer></script>
+</body>
+</html>

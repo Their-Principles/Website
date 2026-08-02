@@ -1,0 +1,26 @@
+/* Layout primitives: page width, section rhythm, shared grids */
+.tp-wrap {
+  max-width: var(--tp-max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.tp-section { padding: var(--space-3xl) 0; }
+.tp-section-tight { padding: var(--space-2xl) 0; }
+
+/* Anchor targets land below the sticky header */
+[id] { scroll-margin-top: 96px; }
+
+/* Two-column editorial split used on story/about/contact */
+.tp-split {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 80px;
+  align-items: center;
+}
+.tp-split-even { grid-template-columns: 1fr 1fr; }
+
+@media (max-width: 860px) {
+  .tp-section { padding: var(--space-2xl) 0; }
+  .tp-section-tight { padding: var(--space-xl) 0; }
+  .tp-split, .tp-split-even { grid-template-columns: 1fr; gap: var(--space-lg); }
+}

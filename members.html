@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members — Their Principles</title>
+<meta name="description" content="Member access for Their Principles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- Split-screen member access, Zero Bond login reference.
+     NOTE: there is no real authentication backend yet — the form validates
+     the email and shows an honest "not open yet" state. See js/forms.js. -->
+<main class="tp-members-page">
+  <div class="tp-members-visual">
+    <!-- TODO(client): set a real editorial photo via
+         style="--tp-members-photo:url('assets/images/hero/members.jpg')" -->
+    <a href="index.html" class="tp-brandmark">Their Principles</a>
+  </div>
+
+  <div class="tp-members-form-side">
+    <div class="tp-members-form">
+      <h1>Member Access</h1>
+      <form id="tpLoginForm" novalidate>
+        <div class="tp-field">
+          <label for="memberEmail">Email</label>
+          <input type="email" id="memberEmail" name="email" data-required autocomplete="email">
+          <div class="tp-field-error">Please enter a valid email.</div>
+        </div>
+        <button type="submit" class="tp-btn tp-btn-primary" style="width:100%;">Continue</button>
+      </form>
+      <div class="tp-form-success"></div>
+      <p class="tp-members-help">Trouble with access? <a href="contact.html">Contact us</a> and we'll sort it out.</p>
+      <p class="tp-members-note">Not a member yet? <a href="application.html" style="text-decoration:underline;text-underline-offset:3px;">Apply here</a>.</p>
+    </div>
+  </div>
+</main>
+
+<script src="js/navigation.js" defer></script>
+<script src="js/forms.js" defer></script>
+</body>
+</html>

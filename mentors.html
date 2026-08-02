@@ -4,74 +4,77 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mentors — Their Principles</title>
-<meta name="description" content="The mentors and advisors who guide Their Principles members — Miami's private community for ambitious 18–25 year-olds.">
+<meta name="description" content="The mentors who guide Their Principles members — Miami's private community for ambitious 18–25 year-olds.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/variables.css">
 <link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
-<nav class="tp-nav" id="tpNav" data-force-solid>
+<nav class="tp-nav" id="tpNav" data-force-solid aria-label="Main">
   <a href="index.html" class="tp-nav-mark tp-brandmark">Their Principles</a>
   <div class="tp-nav-links">
     <a href="index.html#story">Story</a>
-    <a href="index.html#events">Events</a>
+    <a href="index.html#experiences">Experiences</a>
     <a href="index.html#calendar">Calendar</a>
-    <a href="mentors.html">Mentors</a>
+    <a href="mentors.html" aria-current="page">Mentors</a>
+    <a href="application.html">Membership</a>
   </div>
-  <a href="index.html#join" class="tp-nav-cta tp-nav-cta-desktop">Secure Your Place</a>
+  <a href="application.html" class="tp-nav-cta tp-nav-cta-desktop">Secure Your Place</a>
   <button class="tp-nav-toggle" id="tpNavToggle" aria-expanded="false" aria-controls="tpNavOverlay">Menu</button>
 </nav>
 
 <div class="tp-nav-overlay" id="tpNavOverlay">
   <a href="index.html#story">Story</a>
-  <a href="index.html#events">Events</a>
+  <a href="index.html#experiences">Experiences</a>
   <a href="index.html#calendar">Calendar</a>
   <a href="mentors.html">Mentors</a>
-  <a href="index.html#join">Secure Your Place</a>
+  <a href="application.html">Membership</a>
 </div>
 
-<header class="tp-section" style="padding-top:180px;">
-  <div class="tp-wrap">
-    <div class="tp-mentors-intro">
-      <div class="tp-eyebrow">Behind every member</div>
-      <h2>Mentors</h2>
-      <p>Their Principles members don't just get a room of peers — they get access to people a few steps further down the road, ready to answer the questions that actually matter. <!-- TODO(client): confirm this framing and replace with real copy once mentor roster is finalized --></p>
-    </div>
+<header class="tp-page-head">
+  <div class="tp-wrap tp-mentors-intro" style="text-align:center;margin-bottom:0;">
+    <div class="tp-eyebrow">Behind Every Member</div>
+    <h1>Mentors</h1>
+    <p>Members don't just get a room of peers — they get access to people a few steps further down the road, in intimate sessions built around the questions that actually matter.</p>
   </div>
 </header>
 
-<section class="tp-section" style="padding-top:0;">
+<section class="tp-section-tight">
   <div class="tp-wrap">
-    <div class="tp-mentor-grid" id="tpMentorGrid">
-      <!-- TODO(client): populated from content/mentors.json — replace placeholder entries with real mentor names, affiliations, bios, and photos -->
-    </div>
+    <!-- Rendered from content/mentors.json.
+         TODO(client): replace placeholder entries with the real mentor
+         roster — names, affiliations, bios and photos. -->
+    <div class="tp-mentor-grid" id="tpMentorGrid"></div>
   </div>
 </section>
 
 <section class="tp-cta-banner">
   <div class="tp-wrap">
     <h2>Ready to Begin?</h2>
-    <a href="index.html#join" class="tp-btn tp-btn-primary">Secure Your Place</a>
+    <a href="application.html" class="tp-btn tp-btn-primary">Secure Your Place</a>
   </div>
 </section>
 
 <footer class="tp-footer">
   <div class="tp-wrap">
     <div class="tp-brandmark">Their Principles</div>
-    <div class="tp-footer-meta">For the Young Ambitious <span>·</span> Est. 2026 <span>·</span> Miami <span>·</span> theirprinciples@gmail.com</div>
+    <div class="tp-footer-meta">For the Young Ambitious <span>·</span> Miami <span>·</span> Est. 2026</div>
     <div class="tp-footer-links">
-      <a href="#">Instagram</a>
-      <a href="index.html">Home</a>
+      <a href="mailto:theirprinciples@gmail.com">theirprinciples@gmail.com</a>
+      <a href="application.html">Membership</a>
+      <a href="contact.html">Contact</a>
     </div>
   </div>
 </footer>
 
-<script src="js/nav.js" defer></script>
+<script src="js/navigation.js" defer></script>
 <script src="js/mentors.js" defer></script>
 </body>
 </html>

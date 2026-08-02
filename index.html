@@ -4,225 +4,250 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Their Principles — For the Young Ambitious</title>
-<meta name="description" content="Their Principles is a private membership community in Miami for ambitious 18–25 year-olds. Dinners, padel, backgammon nights, workshops, and a room that's only ever people your own age.">
+<meta name="description" content="Their Principles is a private membership community in Miami for ambitious 18–25 year-olds. Real experiences, real accountability, and a room that is only ever people your own age.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/variables.css">
 <link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
-<nav class="tp-nav" id="tpNav">
-  <a href="#top" class="tp-nav-mark tp-brandmark">Their Principles</a>
+<nav class="tp-nav" id="tpNav" aria-label="Main">
+  <a href="index.html" class="tp-nav-mark tp-brandmark" aria-current="page">Their Principles</a>
   <div class="tp-nav-links">
     <a href="#story">Story</a>
-    <a href="#events">Events</a>
+    <a href="#experiences">Experiences</a>
     <a href="#calendar">Calendar</a>
     <a href="mentors.html">Mentors</a>
+    <a href="application.html">Membership</a>
   </div>
-  <a href="#join" class="tp-nav-cta tp-nav-cta-desktop">Secure Your Place</a>
+  <a href="application.html" class="tp-nav-cta tp-nav-cta-desktop">Secure Your Place</a>
   <button class="tp-nav-toggle" id="tpNavToggle" aria-expanded="false" aria-controls="tpNavOverlay">Menu</button>
 </nav>
 
 <div class="tp-nav-overlay" id="tpNavOverlay">
   <a href="#story">Story</a>
-  <a href="#events">Events</a>
+  <a href="#experiences">Experiences</a>
   <a href="#calendar">Calendar</a>
   <a href="mentors.html">Mentors</a>
-  <a href="#join">Secure Your Place</a>
+  <a href="application.html">Membership</a>
+  <a href="application.html">Secure Your Place</a>
 </div>
 
 <header class="tp-hero" id="top">
-  <!-- TODO(client): add a real event photo. Simplest option — add this inline
-       style once the file exists:
+  <!-- TODO(client): add a real event photo —
        style="--tp-hero-photo:url('assets/images/hero/hero.jpg')" -->
   <div class="tp-hero-inner">
-    <div class="tp-hero-eyebrow">Private Membership · Miami</div>
+    <div class="tp-hero-eyebrow">Private Membership · Miami · Est. 2026</div>
     <h1>Their Principles</h1>
     <div class="tp-hero-divider"></div>
     <div class="tp-hero-tag">For the Young Ambitious</div>
     <p class="tp-hero-sub">A private community for 18–25 year-olds, built to return an ambitious generation back to what really matters.</p>
-    <a href="#join" class="tp-btn tp-btn-primary">Secure Your Place</a>
+    <a href="application.html" class="tp-btn tp-btn-primary">Secure Your Place</a>
   </div>
-  <div class="tp-hero-photo-credit"><!-- TODO(client): photo credit once a real image is added --></div>
 </header>
 
-<section class="tp-stats" id="stats" aria-label="Their Principles, by the numbers">
-  <div class="tp-wrap">
-    <div>
-      <div class="tp-stat-num" data-count-target="74" data-count-suffix="+">0</div>
-      <div class="tp-stat-label">Members — ambitious 18–25 year-olds, hand-selected</div>
-    </div>
-    <div>
-      <div class="tp-stat-num" data-count-target="4" data-count-suffix="+">0</div>
-      <div class="tp-stat-label">Events hosted — dinners, padel, backgammon nights &amp; more</div>
-    </div>
-    <div>
-      <div class="tp-stat-num">2026</div>
-      <div class="tp-stat-label">Established in Miami</div>
-    </div>
-  </div>
+<section class="tp-stats" aria-label="Their Principles, by the numbers">
+  <!-- Values come from communityStats in js/events.js — edit them there -->
+  <div class="tp-wrap" id="tpStats"></div>
 </section>
 
 <section class="tp-section" id="moments">
-  <div class="tp-wrap">
-    <div class="tp-carousel-heading">
-      <div class="tp-eyebrow">A look back</div>
-      <h2 class="tp-brandmark">Recent Moments</h2>
-    </div>
-    <div class="tp-carousel" id="tpCarousel">
-      <div class="tp-carousel-track"></div>
-      <button class="tp-carousel-nav tp-carousel-prev" aria-label="Previous photo">&#8249;</button>
-      <button class="tp-carousel-nav tp-carousel-next" aria-label="Next photo">&#8250;</button>
-      <div class="tp-carousel-dots"></div>
-    </div>
+  <div class="tp-wrap tp-moments-heading tp-reveal">
+    <div class="tp-eyebrow">A Look Back</div>
+    <h2>Recent Moments</h2>
+    <p>Scenes from the rooms we've already shared.</p>
+  </div>
+  <div class="tp-marquee tp-reveal" id="tpMarquee" aria-label="Photographs from recent Their Principles gatherings">
+    <div class="tp-marquee-track"></div>
+  </div>
+  <div class="tp-marquee-nav">
+    <button class="tp-marquee-btn" id="tpMarqueePrev" aria-label="Move gallery backward">&#8249;</button>
+    <button class="tp-marquee-btn" id="tpMarqueeNext" aria-label="Move gallery forward">&#8250;</button>
   </div>
 </section>
 
 <section class="tp-section tp-story" id="story">
-  <div class="tp-wrap">
-    <div class="tp-story-mark">
+  <div class="tp-wrap tp-split">
+    <div class="tp-story-mark tp-reveal">
+      <!-- TODO(client): replace this text lockup with the exported vector
+           logo asset once it exists in assets/logo/ -->
       <div>
         <div class="tp-brandmark">Their<br>Principles</div>
-        <div class="tp-hero-divider"></div>
-        <div class="tp-tag">For the Young Ambitious</div>
+        <div class="tp-mark-divider"></div>
+        <div class="tp-mark-tag">For the Young Ambitious</div>
+        <div class="tp-mark-est">Est. 2026 · Miami</div>
       </div>
     </div>
-    <div>
-      <div class="tp-eyebrow">Who we are</div>
-      <h2>The standard, not diluted</h2>
+    <div class="tp-reveal">
+      <div class="tp-eyebrow">Who We Are</div>
+      <h2>The standard, not diluted.</h2>
       <p class="tp-pull">"Their Principles is the community for 18 to 25 year olds, and only 18 to 25 year olds — built to return an ambitious generation back to what really matters."</p>
-      <p>Our generation's development was shaped by the pandemic, but the deeper problem runs further than that: human nature itself — the tendency to fall into distraction, get carried away by society, and absorb toxic limiting patterns and norms. We exist to fix both.</p>
-      <p>Nobody else combines these two things: genuine focus on the professional formation of ambitious individuals, and a room that is only ever people our own age. No older members diluting the standard. We help every member achieve their goals, chase their dreams, and fulfill their purpose professionally — while inevitably becoming a wise, centered, grounded, hard-working individual personally.</p>
-      <p class="tp-story-shift">Most rooms our members have been in are either too old, too surface-level, or too motivational without substance. What shifts everything is realizing: it isn't about knowing what to do — it's about needing the room, the people, and the accountability, people your exact age and exact stage, to actually become it.</p>
+      <p>Our generation grew up through the pandemic, but the deeper challenge runs further than that: human nature itself — the pull of distraction, the drift of society, the patterns that quietly limit what we become. We exist to answer both.</p>
+      <p>Nobody else combines these two things: genuine focus on the professional formation of ambitious individuals, and a room that is only ever people our own age. Every member is here to achieve real goals, chase real dreams, and fulfill their purpose professionally — while becoming a wise, centered, grounded, hard-working individual personally.</p>
+      <p class="tp-story-shift">It isn't about knowing what to do. It's about having the room, the people, and the accountability — people your exact age, at your exact stage — to actually become it.</p>
     </div>
   </div>
 </section>
 
-<section class="tp-section tp-events" id="events">
+<section class="tp-section tp-experiences" id="experiences">
   <div class="tp-wrap">
-    <div class="tp-eyebrow">What membership looks like</div>
-    <h2>The Events</h2>
-    <p class="tp-events-intro">Curated, in-person experiences built for depth of connection — never transactional networking. Every gathering is designed the same way: small enough that everyone actually talks to everyone.</p>
+    <div class="tp-reveal">
+      <div class="tp-eyebrow">What Membership Looks Like</div>
+      <h2>The Experiences</h2>
+      <p class="tp-experiences-intro">Curated, in-person gatherings built for depth of connection — never transactional networking. Small enough that everyone actually talks to everyone.</p>
+    </div>
 
-    <div class="tp-experience">
-      <div class="tp-experience-label">Padel</div>
-      <div>
-        <h3>Padel</h3>
-        <p>Rotating pairs, a full afternoon at Padel X, and no way to spend two hours on a court without actually getting to know the person across the net. We're working toward a monthly cadence — the kind of standing plan you start rearranging your week around.</p>
+    <!-- Hover (or scroll position on touch) reveals a photograph across each
+         row. TODO(client): set each data-image to a real event photo, e.g.
+         data-image="assets/images/events/padel/padel-01.jpg" -->
+    <div class="tp-exp-row" tabindex="0">
+      <div class="tp-exp-bg" data-image=""></div>
+      <div class="tp-wrap tp-exp-inner">
+        <div class="tp-exp-label">Padel</div>
+        <div>
+          <h3>Padel Experience</h3>
+          <p>A social padel session built around rotating pairs, movement and conversation — two hours on a court leaves nowhere for small talk to hide.</p>
+        </div>
       </div>
     </div>
 
-    <div class="tp-experience">
-      <div class="tp-experience-label">Dinners</div>
-      <div>
-        <h3>Dinners at Cecconi's</h3>
-        <p>A fixed table at Cecconi's, Soho House Miami — no name tags, no elevator pitches, just a long dinner with people who happen to be building something too. The conversations that start here tend to keep going long after the check comes.</p>
+    <div class="tp-exp-row" tabindex="0">
+      <div class="tp-exp-bg" data-image=""></div>
+      <div class="tp-wrap tp-exp-inner">
+        <div class="tp-exp-label">Game Nights</div>
+        <div>
+          <h3>Game Night with BS Miami</h3>
+          <p>A relaxed competitive evening centered on games and genuine interaction — a board, a table, and enough time for real conversation to happen without anyone forcing it.</p>
+        </div>
       </div>
     </div>
 
-    <div class="tp-experience">
-      <div class="tp-experience-label">Backgammon</div>
-      <div>
-        <h3>Backgammon Nights</h3>
-        <p>Low-key evenings with the Miami Backgammon Society — no agenda, no pitch, just a board, a drink, and enough time for a real conversation to happen without anyone forcing it.</p>
+    <div class="tp-exp-row" tabindex="0">
+      <div class="tp-exp-bg" data-image=""></div>
+      <div class="tp-wrap tp-exp-inner">
+        <div class="tp-exp-label">Mentorship</div>
+        <div>
+          <h3>Mentorship Experience</h3>
+          <p>An intimate session connecting members with experienced operators, leaders and mentors — the people a few steps further down the road you're on.</p>
+        </div>
       </div>
     </div>
 
-    <div class="tp-experience">
-      <div class="tp-experience-label">Workshops</div>
-      <div>
-        <h3>Workshops &amp; Mentorship</h3>
-        <p>Structured sessions on discipline, business, and personal growth, alongside one-on-one mentorship for members figuring out their next real decision — not a webinar, a room of people who will actually follow up with you.</p>
+    <div class="tp-exp-row" tabindex="0">
+      <div class="tp-exp-bg" data-image=""></div>
+      <div class="tp-wrap tp-exp-inner">
+        <div class="tp-exp-label">Conversations</div>
+        <div>
+          <h3>The War for Your Attention</h3>
+          <p>A focused conversation about distraction, technology, attention and intentional living — the fight this generation actually shares.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tp-exp-row" tabindex="0">
+      <div class="tp-exp-bg" data-image=""></div>
+      <div class="tp-wrap tp-exp-inner">
+        <div class="tp-exp-label">Creative</div>
+        <div>
+          <h3>This Summer, We Create</h3>
+          <p>A creative gathering designed to help members make, share and collaborate — output over talk.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="tp-section tp-calendar" id="calendar">
+<section class="tp-section" id="calendar">
   <div class="tp-wrap">
-    <div class="tp-eyebrow">Upcoming</div>
-    <h2>The Calendar</h2>
-    <p class="tp-calendar-intro">A live look at what's next. Members RSVP directly; a few seats are held for new applicants at each event.</p>
+    <div class="tp-reveal">
+      <div class="tp-eyebrow">The Program</div>
+      <h2 style="font-family:var(--font-mark);font-weight:500;font-size:40px;margin-bottom:16px;">The Calendar</h2>
+      <p class="tp-calendar-intro">Every gathering, in one place. Members RSVP directly; a few seats are held for new applicants at each event.</p>
+    </div>
+    <div class="tp-cal-filters" role="group" aria-label="Filter events">
+      <button class="tp-cal-filter" data-filter="upcoming" aria-pressed="false">Upcoming</button>
+      <button class="tp-cal-filter" data-filter="past" aria-pressed="false">Past</button>
+    </div>
+    <!-- Rendered from the events array in js/events.js -->
     <div class="tp-cal-list" id="tpCalList"></div>
   </div>
 </section>
 
+<!-- Four-panel directory — Zero Bond-inspired identity moment.
+     TODO(client): set each .tp-panel-bg data-image to a real photograph. -->
+<section class="tp-directory" aria-label="Directory">
+  <a class="tp-panel" href="about.html">
+    <div class="tp-panel-bg" data-image=""></div>
+    <div class="tp-panel-letters">Ab<br>out</div>
+    <div class="tp-panel-label">About</div>
+  </a>
+  <a class="tp-panel" href="application.html">
+    <div class="tp-panel-bg" data-image=""></div>
+    <div class="tp-panel-letters">Appli<br>cation</div>
+    <div class="tp-panel-label">Application</div>
+  </a>
+  <a class="tp-panel" href="contact.html">
+    <div class="tp-panel-bg" data-image=""></div>
+    <div class="tp-panel-letters">Con<br>tact</div>
+    <div class="tp-panel-label">Contact</div>
+  </a>
+  <a class="tp-panel" href="members.html">
+    <div class="tp-panel-bg" data-image=""></div>
+    <div class="tp-panel-letters">Mem<br>bers</div>
+    <div class="tp-panel-label">Members</div>
+  </a>
+</section>
+
 <section class="tp-section tp-cta" id="join">
   <div class="tp-wrap">
-    <div class="tp-eyebrow">Membership is by application only</div>
-    <h2>Ready to Begin?</h2>
-    <p class="tp-cta-intro">There are two ways in — pick whichever fits where you are right now.</p>
+    <div class="tp-reveal">
+      <div class="tp-eyebrow">Membership Is by Application Only</div>
+      <h2>Ready to Begin?</h2>
+      <p class="tp-cta-intro">Choose the path that fits where you are right now.</p>
+    </div>
 
     <div class="tp-cta-primary-wrap">
-      <a href="#" class="tp-btn tp-btn-primary">Secure Your Place</a>
-      <span class="tp-cta-primary-note">For members ready to join now.<br><!-- TODO(client): point this at the real membership/payment flow --></span>
+      <a href="application.html" class="tp-btn tp-btn-primary">Secure Your Place</a>
     </div>
 
     <div class="tp-cta-doors">
       <div class="tp-cta-door">
         <h3>Have an invitation?</h3>
-        <p>If you've been referred by a current member or received an invitation code, apply directly.</p>
-        <!-- TODO(client): point this at the real invitation-code intake form once decided -->
-        <a href="#" class="tp-btn tp-btn-secondary">Apply</a>
+        <p>For people referred by an existing member or given an invitation code.</p>
+        <a href="application.html?type=invited" class="tp-btn tp-btn-secondary">Apply with Invitation</a>
       </div>
       <div class="tp-cta-door">
-        <h3>Not sure yet?</h3>
-        <p>Tell us a little about yourself and we'll reach out — no code required.</p>
-        <button class="tp-btn tp-btn-secondary" id="tpGtyToggle" aria-expanded="false" aria-controls="tpGtyForm">Get to Know You</button>
+        <h3>No invitation yet?</h3>
+        <p>For people who want to introduce themselves and be considered.</p>
+        <a href="application.html?type=general" class="tp-btn tp-btn-secondary">Introduce Yourself</a>
       </div>
     </div>
-
-    <form class="tp-gty-form" id="tpGtyForm" novalidate>
-      <div class="tp-gty-field">
-        <label for="gtyName">Name</label>
-        <input type="text" id="gtyName" name="name" data-required autocomplete="name">
-        <div class="tp-gty-error">Please tell us your name.</div>
-      </div>
-      <div class="tp-gty-field">
-        <label for="gtyEmail">Email</label>
-        <input type="email" id="gtyEmail" name="email" data-required autocomplete="email">
-        <div class="tp-gty-error">Please enter a valid email.</div>
-      </div>
-      <div class="tp-gty-field">
-        <label for="gtyAge">Age</label>
-        <input type="number" id="gtyAge" name="age" min="18" max="25" data-required>
-        <div class="tp-gty-error">Membership is for 18–25 year-olds.</div>
-      </div>
-      <div class="tp-gty-field">
-        <label for="gtySocial">Instagram or LinkedIn</label>
-        <input type="text" id="gtySocial" name="social" data-required autocomplete="off">
-        <div class="tp-gty-error">Please share a way to find you.</div>
-      </div>
-      <div class="tp-gty-field">
-        <label for="gtyWhy">In one line, why Their Principles?</label>
-        <textarea id="gtyWhy" name="why" rows="2" data-required></textarea>
-        <div class="tp-gty-error">Tell us a little about why you're reaching out.</div>
-      </div>
-      <button type="submit" class="tp-btn tp-btn-secondary">Send</button>
-    </form>
-    <div class="tp-gty-success" id="tpGtySuccess">Thank you — we'll be in touch soon.</div>
   </div>
 </section>
 
 <footer class="tp-footer">
   <div class="tp-wrap">
     <div class="tp-brandmark">Their Principles</div>
-    <div class="tp-footer-meta">For the Young Ambitious <span>·</span> Est. 2026 <span>·</span> Miami <span>·</span> theirprinciples@gmail.com</div>
+    <div class="tp-footer-meta">For the Young Ambitious <span>·</span> Miami <span>·</span> Est. 2026</div>
     <div class="tp-footer-links">
-      <!-- TODO(client): add real social links -->
-      <a href="#">Instagram</a>
+      <a href="mailto:theirprinciples@gmail.com">theirprinciples@gmail.com</a>
+      <!-- TODO(client): add the real Instagram profile URL -->
+      <a href="application.html">Membership</a>
+      <a href="contact.html">Contact</a>
       <a href="mentors.html">Mentors</a>
     </div>
   </div>
 </footer>
 
-<script src="js/nav.js" defer></script>
-<script src="js/carousel.js" defer></script>
-<script src="js/stats-counter.js" defer></script>
-<script src="js/calendar.js" defer></script>
-<script src="js/form.js" defer></script>
+<script src="js/navigation.js" defer></script>
+<script src="js/gallery.js" defer></script>
+<script src="js/experiences.js" defer></script>
+<script src="js/events.js" defer></script>
 </body>
 </html>

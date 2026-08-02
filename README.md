@@ -1,91 +1,122 @@
 # Their Principles — Website
 
-Private-membership landing page for Their Principles (Miami). Plain HTML/CSS/JS —
-no build step, no framework, no dependencies to install.
+Private-membership website for Their Principles (Miami, Est. 2026). Plain
+HTML/CSS/JS — no build step, no framework, no dependencies to install.
+
+## Pages
+
+| Page | Purpose |
+|---|---|
+| `index.html` | Landing page: hero, stats, Recent Moments gallery, story, experiences, calendar, four-panel directory, application CTA |
+| `about.html` | Story, positioning, audience, values |
+| `application.html` | Membership application — invitation and general paths (`?type=invited` / `?type=general`) |
+| `contact.html` | Contact form + press/partnership inquiries |
+| `members.html` | Member access (demo state — no real authentication yet) |
+| `mentors.html` | Mentor roster (placeholder entries) |
 
 ## Running it locally
 
-There's nothing to install or build. Two options:
-
-1. **Just open the file.** Double-click `index.html`. Everything works except the
-   carousel/calendar/mentor grid, which load their content via `fetch()` and
-   most browsers block `fetch()` on the `file://` protocol.
-2. **Serve it locally (recommended).** From this folder, run:
-
-   ```bash
-   python3 -m http.server 8000
-   ```
-
-   Then open `http://localhost:8000` in your browser. This makes `fetch()` work
-   so the calendar, carousel, and mentor grid all render correctly.
-
-## Project structure
-
-```
-index.html                 Home page — the full landing page
-mentors.html                Mentors subpage
-css/
-  variables.css             Brand colors, fonts, spacing — the source of truth
-  base.css                  Reset + base typography
-  components.css            Every section's styles (nav, hero, stats, etc.)
-  pages.css                 Page-specific tweaks (mentors CTA banner, etc.)
-js/
-  nav.js                     Solid nav on scroll + mobile menu
-  carousel.js                Past-events carousel (autoplay + controls)
-  stats-counter.js           Animated member/event counters
-  calendar.js                Renders content/calendar.json
-  mentors.js                 Renders content/mentors.json
-  form.js                    "Get to Know You" form validation + submit
-content/                     ⚠️ Edit these to update the live site — see below
-  calendar.json              Upcoming events
-  carousel.json              Past-event photos
-  mentors.json                Mentor bios
-assets/
-  images/                    hero/, carousel/, events/, mentors/ — all TODO, empty
-  logo/                      TODO — no vector wordmark file exists yet
-docs/
-  content-editing-guide.md   Plain-language guide for non-technical editors
-```
-
-## Editing content (no coding required)
-
-See [`docs/content-editing-guide.md`](docs/content-editing-guide.md). Short version:
-almost everything you'll want to change day-to-day lives in the three files inside
-`content/` — you can edit those directly on GitHub.com without installing anything.
-
-## Outstanding TODOs before launch
-
-Search the codebase for `TODO(client)` to find every spot that needs real input.
-As of this build, that includes:
-
-- Real photography for the hero, carousel, and each event type
-- A vector logo file (SVG/PNG) — none was supplied; the wordmark is currently
-  built from CSS/text, not an image
-- Real mentor names, bios, and photos (`content/mentors.json`)
-- A real Formspree endpoint for the "Get to Know You" form (`js/form.js`)
-- The real destination for the "Apply" and "Secure Your Place" buttons
-  (currently `href="#"`)
-- Confirming the GitHub org/repo name before the first push (see below)
-
-## Connecting this to GitHub
-
-This folder is not yet a git repository. To connect it:
+Nothing to install. From this folder:
 
 ```bash
-git init
-git add .
-git commit -m "Initial site build"
-git branch -M main
-git remote add origin https://github.com/Their-Principles/Website.git
-git push -u origin main
+python3 -m http.server 8000
 ```
 
-Replace the remote URL if `Their-Principles/Website` isn't the confirmed org/repo name.
-Suggested branch model: `main` (production) + `dev` (integration) + short-lived
-`feature/*` branches per section, merged into `dev` first, then `dev` → `main` to deploy.
+Then open `http://localhost:8000`. (Serving matters: the mentor grid loads
+`content/mentors.json` via `fetch()`, which browsers block on `file://`.)
 
-## Brand reference
+## Where things live
 
-Colors, fonts, and spacing all live in `css/variables.css` — that file is the
-single source of truth for the brand system. Do not hardcode hex values or font
-names anywhere else; reference the CSS variables instead.
+```
+css/
+  variables.css    ← brand tokens: colors (incl. muted gold), fonts, spacing, motion
+  base.css          reset, typography, buttons, forms, selection, focus states
+  layout.css        page width, section rhythm, split grids
+  components.css    nav, hero, stats, gallery, story, experiences, calendar,
+                    directory panels, CTA, footer
+  pages.css         subpage compositions (about/application/contact/members/mentors)
+  responsive.css    all breakpoint overrides (375 → 1440+)
+
+js/
+  navigation.js     scroll-aware hide/reveal nav, mobile menu, page transitions
+  gallery.js        Recent Moments continuous photo strip (+ its image list)
+  experiences.js    hover/scroll image reveals for experience rows + directory panels
+  events.js         ← EVENTS + STATS DATA — edit this file to update the calendar
+  forms.js          application/contact/login validation and submission
+  mentors.js        renders content/mentors.json
+
+content/mentors.json   mentor roster (editable without touching code)
+assets/images/         event photography (see below) — currently empty
+```
+
+## How to update events
+
+Open `js/events.js` and edit the `events` array at the top. Each entry:
+
+```js
+{
+  title: "Game Night with BS Miami",
+  date: "2026-07-09",        // YYYY-MM-DD
+  time: "8:00 PM",
+  location: "Pamplemousse On The Bay",
+  image: "",                  // path under assets/images/events/…
+  url: "",                    // the event's Luma registration link
+  status: "",                 // e.g. "open" for upcoming events
+  category: "Game Night"
+}
+```
+
+The calendar sorts chronologically and splits Upcoming/Past automatically.
+Member/event counts live in `communityStats` in the same file — never
+hard-code numbers in the HTML.
+
+## How to connect Luma later
+
+`js/events.js` contains a clearly marked `fetchLumaEvents()` adapter stub.
+When an official Luma data source or backend endpoint is approved, implement
+it to return an array shaped like `events`, then swap it in. Nothing about
+the calendar's HTML needs to change. There is currently **no** working Luma
+integration — the calendar renders from the local data above.
+
+## How to replace images
+
+1. Drop photos into the matching folder:
+   `assets/images/events/july-pass/`, `game-night/`, `attention-talk/`,
+   `summer-create/`, `padel/`, `mentorship/` (use meaningful file names).
+2. Recent Moments gallery: set the `image` fields in the list at the top of
+   `js/gallery.js`.
+3. Experience rows + directory panels: set the `data-image` attributes in
+   `index.html`.
+4. Hero / members page: set the CSS variable noted in the TODO comments in
+   `index.html` and `members.html`.
+
+Prefer WebP/AVIF with compressed JPG fallbacks; keep files under ~400KB.
+
+## How to connect the application & contact forms
+
+`js/forms.js` has an `ENDPOINTS` object at the top with empty values. Create
+forms at formspree.io (or any POST endpoint) and paste the URLs there. Until
+then, submissions validate locally and show the success state without
+sending anywhere.
+
+## How to connect member authentication
+
+There is none yet. `members.html` shows an honest "access not open yet"
+state after validating an email. When a member system is chosen, replace the
+handler marked `DEMO ONLY` in `js/forms.js`.
+
+## Content still pending (search the code for `TODO(client)`)
+
+- All event photography (gallery, experience rows, directory panels, hero)
+- Exported vector logo (the mark is currently a typographic lockup)
+- Real mentor roster in `content/mentors.json`
+- Mentorship Experience with Moshe Mana — date/time/location for the calendar
+- Luma registration URLs per event
+- Instagram profile URL (footer + contact page)
+- Form endpoints (application + contact)
+- Member authentication
+
+## Git
+
+`main` holds the current version. The pre-refinement build is preserved in
+the initial commit ("Backup: initial site build").

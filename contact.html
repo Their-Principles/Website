@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Their Principles</title>
+<meta name="description" content="Contact Their Principles — general, press and partnership inquiries.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="tp-contact-page">
+
+<nav class="tp-nav" id="tpNav" data-force-solid aria-label="Main">
+  <a href="index.html" class="tp-nav-mark tp-brandmark">Their Principles</a>
+  <div class="tp-nav-links">
+    <a href="index.html#story">Story</a>
+    <a href="index.html#experiences">Experiences</a>
+    <a href="index.html#calendar">Calendar</a>
+    <a href="mentors.html">Mentors</a>
+    <a href="application.html">Membership</a>
+  </div>
+  <a href="application.html" class="tp-nav-cta tp-nav-cta-desktop">Secure Your Place</a>
+  <button class="tp-nav-toggle" id="tpNavToggle" aria-expanded="false" aria-controls="tpNavOverlay">Menu</button>
+</nav>
+
+<div class="tp-nav-overlay" id="tpNavOverlay">
+  <a href="index.html#story">Story</a>
+  <a href="index.html#experiences">Experiences</a>
+  <a href="index.html#calendar">Calendar</a>
+  <a href="mentors.html">Mentors</a>
+  <a href="application.html">Membership</a>
+</div>
+
+<main class="tp-wrap tp-contact-layout">
+  <div class="tp-contact-form">
+    <form id="tpContactForm" novalidate>
+      <div class="tp-field">
+        <label for="ctName">Full name</label>
+        <input type="text" id="ctName" name="name" data-required autocomplete="name">
+        <div class="tp-field-error">Please tell us your name.</div>
+      </div>
+      <div class="tp-field">
+        <label for="ctEmail">Email</label>
+        <input type="email" id="ctEmail" name="email" data-required autocomplete="email">
+        <div class="tp-field-error">Please enter a valid email.</div>
+      </div>
+      <div class="tp-field">
+        <label for="ctCategory">Inquiry type</label>
+        <select id="ctCategory" name="category" data-required>
+          <option value="">Select…</option>
+          <option value="general">General inquiry</option>
+          <option value="membership">Membership</option>
+          <option value="press">Press</option>
+          <option value="partnership">Partnership</option>
+        </select>
+        <div class="tp-field-error">Please choose an inquiry type.</div>
+      </div>
+      <div class="tp-field">
+        <label for="ctMessage">Message</label>
+        <textarea id="ctMessage" name="message" rows="5" data-required></textarea>
+        <div class="tp-field-error">Please write a short message.</div>
+      </div>
+      <button type="submit" class="tp-btn tp-btn-secondary">Submit</button>
+    </form>
+    <div class="tp-form-success">Thank you — your message has been received. We'll reply personally.</div>
+  </div>
+
+  <div class="tp-contact-info">
+    <h1>Contact</h1>
+    <p>theirprinciples@gmail.com</p>
+    <p>Miami, Florida</p>
+    <span class="tp-label">Press &amp; Partnerships</span>
+    <p>For press or partnership inquiries, please use the form and select the matching inquiry type — it reaches the right person directly.</p>
+    <span class="tp-label">Instagram</span>
+    <!-- TODO(client): add the real Instagram profile URL -->
+    <p>@theirprinciples</p>
+  </div>
+</main>
+
+<footer class="tp-footer">
+  <div class="tp-wrap">
+    <div class="tp-brandmark">Their Principles</div>
+    <div class="tp-footer-meta">For the Young Ambitious <span>·</span> Miami <span>·</span> Est. 2026</div>
+    <div class="tp-footer-links">
+      <a href="mailto:theirprinciples@gmail.com">theirprinciples@gmail.com</a>
+      <a href="application.html">Membership</a>
+      <a href="mentors.html">Mentors</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/navigation.js" defer></script>
+<script src="js/forms.js" defer></script>
+</body>
+</html>

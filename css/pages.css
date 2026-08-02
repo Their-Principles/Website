@@ -1,10 +1,96 @@
-/* Page-specific tweaks that don't belong in the shared component library */
+/* Subpage-specific composition. Shared components live in components.css. */
 
-/* Mentors page: condensed CTA banner (not the full three-door section) */
-.tp-cta-banner {
-  background: var(--tp-espresso); color: var(--tp-cream); text-align: center; padding: 90px 0;
+/* ---- Shared subpage header (pages without a full hero) ---- */
+.tp-page-head { padding: 200px 0 var(--space-xl); }
+.tp-page-head h1 { font-family: var(--font-mark); font-weight: 500; font-size: 52px; margin-bottom: 18px; }
+.tp-page-head .tp-lede { font-size: 20px; color: var(--tp-ink-soft); max-width: 62ch; }
+
+/* ---- About ---- */
+.tp-about-values { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); margin-top: var(--space-xl); }
+.tp-value h3 { font-family: var(--font-mark); font-weight: 500; font-size: 24px; margin-bottom: 10px; }
+.tp-value p { font-size: 16px; color: var(--tp-ink-soft); }
+.tp-about-band {
+  background: var(--tp-espresso); color: var(--tp-cream);
+  padding: var(--space-2xl) 0;
 }
-.tp-cta-banner h2 { color: var(--tp-cream); font-size: 32px; margin-bottom: 24px; }
+.tp-about-band .tp-pull {
+  font-family: var(--font-mark); font-style: italic; font-size: 28px; line-height: 1.45;
+  max-width: 30ch; margin: 0 auto; text-align: center; color: var(--tp-cream);
+}
 
-/* Home page: tighten the gap between hero and stats since stats sit directly under it */
-.tp-hero + .tp-stats { margin-top: -1px; }
+/* ---- Application ---- */
+.tp-app-layout { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 80px; align-items: start; }
+.tp-app-facts { border-top: 1px solid var(--tp-hairline-on-light); }
+.tp-app-fact { padding: var(--space-md) 0; border-bottom: 1px solid var(--tp-hairline-on-light); }
+.tp-app-fact h3 { font-family: var(--font-mark); font-weight: 500; font-size: 22px; margin-bottom: 8px; }
+.tp-app-fact p { font-size: 16px; color: var(--tp-ink-soft); }
+.tp-app-form-card { position: sticky; top: 110px; }
+.tp-mode-switch { display: flex; gap: 2px; margin-bottom: var(--space-lg); border: 1px solid rgba(40,15,9,.25); border-radius: var(--tp-radius); overflow: hidden; }
+.tp-mode-switch button {
+  flex: 1; background: transparent; border: none;
+  font-family: var(--font-cta); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 14px 10px; color: var(--tp-ink-muted);
+  transition: background var(--dur-btn) var(--ease-out), color var(--dur-btn) var(--ease-out);
+}
+.tp-mode-switch button[aria-pressed="true"] { background: var(--tp-espresso); color: var(--tp-cream); }
+.tp-privacy-note { font-size: 14px; color: var(--tp-ink-muted); margin-top: var(--space-md); font-style: italic; }
+
+/* ---- Contact (Zero Bond-inspired two-column on espresso) ---- */
+.tp-contact-page { background: var(--tp-espresso); color: var(--tp-cream); min-height: 100vh; }
+.tp-contact-layout { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 100px; align-items: start; padding: 200px 0 var(--space-2xl); }
+.tp-contact-form .tp-field input, .tp-contact-form .tp-field textarea, .tp-contact-form .tp-field select {
+  border-bottom-color: var(--tp-hairline-on-dark);
+  color: var(--tp-cream);
+}
+.tp-contact-form .tp-field select { background: var(--tp-espresso); }
+.tp-contact-info h1 { font-family: var(--font-mark); font-weight: 500; font-size: 44px; color: var(--tp-gold); margin-bottom: var(--space-md); text-transform: uppercase; letter-spacing: 0.06em; }
+.tp-contact-info p { color: var(--tp-cream-on-dark-70); font-size: 17px; margin-bottom: var(--space-sm); }
+.tp-contact-info .tp-label { display: block; font-size: 11px; color: var(--tp-gold-dim); margin: var(--space-lg) 0 var(--space-xs); }
+
+/* ---- Members (split-screen login) ---- */
+.tp-members-page { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+.tp-members-visual {
+  background:
+    linear-gradient(160deg, rgba(21,31,12,.5), rgba(40,15,9,.72)),
+    var(--tp-members-photo, linear-gradient(150deg, #2b1a10 0%, #151F0C 70%));
+  background-size: cover; background-position: center;
+  display: flex; align-items: flex-end;
+  padding: var(--space-xl);
+}
+/* TODO(client): set --tp-members-photo to a real editorial photo when available */
+.tp-members-visual .tp-brandmark { color: var(--tp-cream); font-size: 20px; text-transform: uppercase; letter-spacing: 0.14em; }
+.tp-members-form-side {
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--space-xl) var(--space-lg);
+}
+.tp-members-form { width: 100%; max-width: 380px; }
+.tp-members-form h1 { font-family: var(--font-mark); font-weight: 500; font-size: 40px; margin-bottom: var(--space-lg); color: var(--tp-espresso); }
+.tp-members-help { margin-top: var(--space-md); font-size: 14px; color: var(--tp-ink-muted); }
+.tp-members-help a { text-decoration: underline; text-underline-offset: 3px; }
+.tp-members-note {
+  margin-top: var(--space-lg); padding-top: var(--space-md);
+  border-top: 1px solid var(--tp-hairline-on-light);
+  font-family: var(--font-cta); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--tp-ink-muted);
+}
+
+/* ---- Mentors ---- */
+.tp-mentors-intro { max-width: 620px; margin: 0 auto var(--space-xl); text-align: center; }
+.tp-mentors-intro h1 { font-family: var(--font-mark); font-weight: 500; font-size: 46px; margin-bottom: 18px; }
+.tp-mentors-intro p { font-size: 19px; color: var(--tp-ink-soft); }
+.tp-mentor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px 40px; }
+.tp-mentor-photo {
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #C9BEAE, #E4DFD3);
+  border-radius: var(--tp-radius);
+  margin-bottom: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-cta); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #8A7A63;
+}
+.tp-mentor-card h3 { font-size: 21px; margin-bottom: 4px; }
+.tp-mentor-card .tp-affiliation { font-family: var(--font-cta); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--tp-burgundy); margin-bottom: 10px; }
+.tp-mentor-card p.tp-bio { font-size: 15px; color: var(--tp-ink-muted); }
+
+/* ---- Condensed CTA banner used on subpages ---- */
+.tp-cta-banner { background: var(--tp-espresso); color: var(--tp-cream); text-align: center; padding: var(--space-2xl) 0; }
+.tp-cta-banner h2 { color: var(--tp-cream); font-family: var(--font-mark); font-weight: 500; font-size: 34px; margin-bottom: var(--space-md); }

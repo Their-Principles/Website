@@ -1,34 +1,53 @@
 /* Their Principles — brand tokens
-   Verified against the client's brand deck (positioning statement, audience
-   definition, brand kit slides). Do not introduce colors/fonts outside this file. */
+   Verified against the client's brand deck. This file is the single source of
+   truth for color, type, spacing and motion. Do not introduce values outside it. */
 :root {
   /* Brand colors — exact hex from the brand kit */
-  --tp-espresso: #280F09;   /* near-black, primary text + hero background */
-  --tp-cream: #F0EFEA;      /* parchment, primary background */
-  --tp-burgundy: #441116;   /* accent, primary CTA, stat band */
-  --tp-green: #151E0C;      /* secondary accent, used sparingly */
+  --tp-espresso: #280F09;   /* dark brown — primary dark surface + text on cream */
+  --tp-cream: #F0EFEA;      /* parchment — primary light surface */
+  --tp-burgundy: #441116;   /* accent — primary CTA, footer */
+  --tp-green: #151F0C;      /* dark green — four-panel directory */
 
-  /* Derived tints (not in the deck — computed for hover/border/dim states) */
+  /* Muted gold — sparing use only: monogram letters, fine dividers,
+     hover states, selected labels. Never a dominant surface color. */
+  --tp-gold: #A8894E;
+  --tp-gold-dim: rgba(168, 137, 78, 0.55);
+
+  /* Derived tints (computed for hover/border/dim states) */
   --tp-cream-dim: #E4E2D9;
   --tp-burgundy-light: #5A1A21;
-  --tp-espresso-70: rgba(40, 15, 9, 0.7);
+  --tp-ink-soft: #3A251D;             /* body text on cream, slightly warm */
+  --tp-ink-muted: #6B5847;            /* captions/meta on cream */
   --tp-cream-on-dark-70: rgba(240, 239, 234, 0.7);
   --tp-cream-on-dark-40: rgba(240, 239, 234, 0.4);
-  --tp-hairline-on-dark: rgba(240, 239, 234, 0.16);
-  --tp-hairline-on-light: rgba(40, 15, 9, 0.14);
+  --tp-hairline-on-dark: rgba(240, 239, 234, 0.14);
+  --tp-hairline-on-light: rgba(40, 15, 9, 0.12);
 
   /* Typography
      Cormorant Garamond + EB Garamond are the real brand fonts (free).
      Proxima Nova and Futura are commercial — Inter and Jost stand in until
-     licensed. Swap the two substitute lines below if a license is purchased. */
-  --font-mark: 'Cormorant Garamond', serif;
-  --font-body: 'EB Garamond', serif;
-  --font-title: 'Inter', sans-serif;      /* stand-in for Proxima Nova */
-  --font-cta: 'Jost', sans-serif;          /* stand-in for Futura */
+     licensed. Swap only these two lines if a license is purchased. */
+  --font-mark: 'Cormorant Garamond', Georgia, serif;   /* brand mark + editorial display */
+  --font-body: 'EB Garamond', Georgia, serif;           /* body copy + italic statements */
+  --font-title: 'Inter', -apple-system, sans-serif;     /* clean headings (Proxima Nova stand-in) */
+  --font-cta: 'Jost', 'Futura', sans-serif;             /* CTAs, labels, dates, microcopy (Futura stand-in) */
 
-  /* Spacing / rhythm */
-  --tp-section-pad: 128px;
-  --tp-section-pad-mobile: 72px;
+  /* Spacing scale — use these, not arbitrary values */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+  --space-2xl: 96px;
+  --space-3xl: 140px;
+
   --tp-max-width: 1180px;
   --tp-radius: 2px;
+
+  /* Motion system — one coherent language across the site */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-btn: 220ms;
+  --dur-hover-img: 550ms;
+  --dur-nav: 400ms;
+  --dur-entrance: 700ms;
 }

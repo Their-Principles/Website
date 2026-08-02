@@ -1,0 +1,67 @@
+/* Consolidated breakpoint overrides. Mobile is a distinct composition,
+   not a shrunk desktop. Test at 375 / 390 / 430 / 768 / 1024 / 1440. */
+
+@media (max-width: 1024px) {
+  .tp-app-layout, .tp-contact-layout { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .tp-app-form-card { position: static; }
+  .tp-about-values { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 860px) {
+  /* Nav: fullscreen menu, no squeezed desktop links */
+  .tp-nav { padding: 18px 24px; }
+  .tp-nav.is-solid { padding: 14px 24px; }
+  .tp-nav-links, .tp-nav-cta-desktop { display: none; }
+  .tp-nav-toggle { display: block; }
+
+  /* Hero */
+  .tp-hero h1 { font-size: 40px; }
+  .tp-hero-inner { padding: 0 24px; }
+
+  /* Stats */
+  .tp-stats .tp-wrap { gap: var(--space-lg); flex-direction: column; }
+
+  /* Recent Moments: ~1.3 images visible to imply movement */
+  .tp-marquee-item { height: 280px; }
+  .tp-marquee-item.is-wide { width: 78vw; }
+  .tp-marquee-item.is-standard { width: 64vw; }
+  .tp-marquee-item.is-narrow { width: 52vw; }
+
+  /* Experiences */
+  .tp-exp-inner { grid-template-columns: 1fr; gap: 10px; padding: var(--space-lg) 0; }
+
+  /* Calendar: date + title stay visible, meta wraps below */
+  .tp-cal-row { grid-template-columns: 84px 1fr; gap: 8px var(--space-sm); }
+  .tp-cal-date { grid-row: span 2; }
+  .tp-cal-loc, .tp-status { grid-column: 2; text-align: left; }
+
+  /* Directory: four stacked immersive sections */
+  .tp-directory { grid-template-columns: 1fr; min-height: auto; }
+  .tp-panel {
+    min-height: 42vh;
+    border-right: none;
+    border-bottom: 1px solid rgba(240, 239, 234, 0.08);
+  }
+  .tp-panel:last-child { border-bottom: none; }
+  .tp-panel-letters { font-size: 44px; }
+  .tp-panel-label { bottom: 26px; }
+
+  /* CTA */
+  .tp-cta-doors { flex-direction: column; }
+
+  /* Subpages */
+  .tp-page-head { padding: 150px 0 var(--space-lg); }
+  .tp-page-head h1 { font-size: 38px; }
+  .tp-about-values { grid-template-columns: 1fr; }
+  .tp-contact-layout { padding: 140px 0 var(--space-xl); }
+  .tp-contact-info { order: -1; }
+  .tp-members-page { grid-template-columns: 1fr; }
+  .tp-members-visual { min-height: 34vh; padding: var(--space-lg); }
+  .tp-mentor-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 560px) {
+  .tp-mentor-grid { grid-template-columns: 1fr; }
+  .tp-story h2, .tp-experiences h2, .tp-cta h2 { font-size: 32px; }
+  .tp-moments-heading h2 { font-size: 32px; }
+}
