@@ -107,7 +107,8 @@
     });
 
     window.addEventListener('resize', function () {
-      halfWidth = track.scrollWidth / 2;
+      var measured = track.scrollWidth / 2;
+      if (measured > 0) halfWidth = measured; // ignore zero-size layouts
     }, { passive: true });
   }
 
@@ -129,9 +130,11 @@
   }
 
   function wrap() {
+    // Re-measure if the last measurement happened while the element had no
+    // layout (hidden tab/pane reports scrollWidth of 0).
+    if (halfWidth <= 0) halfWidth = track.scrollWidth / 2;
     if (halfWidth <= 0) return;
-    if (offset >= halfWidth) offset -= halfWidth;
-    if (offset < 0) offset += halfWidth;
+    offset = ((offset % halfWidth) + halfWidth) % halfWidth;
   }
 
   function apply() {
@@ -140,7 +143,8 @@
 
   function tick(now) {
     if (lastTime !== null && !dragging) {
-      var dt = (now - lastTime) / 1000;
+      // Clamp dt so a throttled/paused tab doesn't produce one giant jump
+      var dt = Math.min((now - lastTime) / 1000, 0.1);
       offset += SPEED_PX_PER_S * speedFactor * dt;
       wrap();
       apply();
