@@ -1,0 +1,10 @@
+/* Page-specific tweaks that don't belong in the shared component library */
+
+/* Mentors page: condensed CTA banner (not the full three-door section) */
+.tp-cta-banner {
+  background: var(--tp-espresso); color: var(--tp-cream); text-align: center; padding: 90px 0;
+}
+.tp-cta-banner h2 { color: var(--tp-cream); font-size: 32px; margin-bottom: 24px; }
+
+/* Home page: tighten the gap between hero and stats since stats sit directly under it */
+.tp-hero + .tp-stats { margin-top: -1px; }

@@ -1,0 +1,34 @@
+/* Their Principles — brand tokens
+   Verified against the client's brand deck (positioning statement, audience
+   definition, brand kit slides). Do not introduce colors/fonts outside this file. */
+:root {
+  /* Brand colors — exact hex from the brand kit */
+  --tp-espresso: #280F09;   /* near-black, primary text + hero background */
+  --tp-cream: #F0EFEA;      /* parchment, primary background */
+  --tp-burgundy: #441116;   /* accent, primary CTA, stat band */
+  --tp-green: #151E0C;      /* secondary accent, used sparingly */
+
+  /* Derived tints (not in the deck — computed for hover/border/dim states) */
+  --tp-cream-dim: #E4E2D9;
+  --tp-burgundy-light: #5A1A21;
+  --tp-espresso-70: rgba(40, 15, 9, 0.7);
+  --tp-cream-on-dark-70: rgba(240, 239, 234, 0.7);
+  --tp-cream-on-dark-40: rgba(240, 239, 234, 0.4);
+  --tp-hairline-on-dark: rgba(240, 239, 234, 0.16);
+  --tp-hairline-on-light: rgba(40, 15, 9, 0.14);
+
+  /* Typography
+     Cormorant Garamond + EB Garamond are the real brand fonts (free).
+     Proxima Nova and Futura are commercial — Inter and Jost stand in until
+     licensed. Swap the two substitute lines below if a license is purchased. */
+  --font-mark: 'Cormorant Garamond', serif;
+  --font-body: 'EB Garamond', serif;
+  --font-title: 'Inter', sans-serif;      /* stand-in for Proxima Nova */
+  --font-cta: 'Jost', sans-serif;          /* stand-in for Futura */
+
+  /* Spacing / rhythm */
+  --tp-section-pad: 128px;
+  --tp-section-pad-mobile: 72px;
+  --tp-max-width: 1180px;
+  --tp-radius: 2px;
+}
