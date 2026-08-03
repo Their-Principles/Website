@@ -125,6 +125,19 @@ handler marked `DEMO ONLY` in `js/forms.js`.
   "Padel Experience". Game Night with BS Miami, The War for Your Attention
   with Andrés Preschel, This Summer We Create, and the Mentorship Experience
   with Moshe Mana all still need photos before the archive feels complete.
+- The Mentorship Experience with Moshe Mana photo and two venue lounge photos
+  were shared in chat on 2026-08-02 but couldn't be saved as files — pasted
+  chat images aren't accessible on disk the way an @-attached file or a
+  download is. **To add them:** save each image (drag it out of the chat, or
+  right-click → Save Image) into `assets/images/inbox/`, then ask to have
+  them wired into the gallery. Same for the "circle of people talking, shot
+  from behind" photo requested for the Members directory panel — it wasn't
+  a file either and the panel still shows the padel group photo.
+- The Contact directory panel currently uses a generic Miami stock photo
+  (`assets/images/stock/miami-skyline-palms.jpg`, only 540×360 — visibly
+  soft at full panel size) as a temporary placeholder. Replace with real
+  Their Principles photography, or a higher-resolution version of the same
+  shot, when available.
 - Photography for the hero and the experience rows
 - Exported vector logo (the mark is currently a typographic lockup)
 - Real mentor roster in `content/mentors.json`

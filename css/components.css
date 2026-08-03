@@ -324,10 +324,16 @@ a.tp-cal-row:hover { background: rgba(40, 15, 9, 0.03); }
 /* ── DIRECTORY PANEL IMAGERY — the only place these four photos are set ──
    TODO(client): the two venue photographs below are of Pamplemousse On The
    Bay (our Game Night venue) rather than of an event itself. Swap them for
-   approved Their Principles photography when it is available. */
+   approved Their Principles photography when it is available.
+   TODO(client): the Contact panel is a generic stock photo (540x360 source —
+   will look soft on large screens) used only as a temporary placeholder.
+   Replace with real Their Principles photography when available.
+   TODO(client): the Members panel photo you asked for (a group talking in a
+   circle, shot from behind) could not be saved from the chat — see the
+   note in README.md. Still showing the padel group photo until it's supplied. */
 .tp-panel--about       { --panel-image: url('../assets/images/venues/bay-terrace.jpg'); }
 .tp-panel--application { --panel-image: url('../assets/images/venues/bay-tables.jpg'); }
-.tp-panel--contact     { --panel-image: url('../assets/images/padel/courtside-table.jpg'); }
+.tp-panel--contact     { --panel-image: url('../assets/images/stock/miami-skyline-palms.jpg'); }
 .tp-panel--members     { --panel-image: url('../assets/images/padel/group-courtside.jpg'); }
 
 .tp-directory {
