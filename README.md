@@ -80,17 +80,30 @@ integration — the calendar renders from the local data above.
 
 ## How to replace images
 
-1. Drop photos into the matching folder:
-   `assets/images/events/july-pass/`, `game-night/`, `attention-talk/`,
-   `summer-create/`, `padel/`, `mentorship/` (use meaningful file names).
-2. Recent Moments gallery: set the `image` fields in the list at the top of
-   `js/gallery.js`.
-3. Experience rows + directory panels: set the `data-image` attributes in
-   `index.html`.
-4. Hero / members page: set the CSS variable noted in the TODO comments in
+Photos live in `assets/images/`. Current contents:
+
+- `padel/` — 18 photographs from the padel event on 1 August 2026 at Epic
+  Athletic Club (listed on Luma as "July Pass"). These are the real archive.
+- `venues/` — two photographs of Pamplemousse On The Bay, used only as
+  atmospheric backgrounds on two directory panels.
+
+Where each set is referenced:
+
+1. **Recent Moments gallery** — the `PHOTOS` list at the top of
+   `js/gallery.js`. Each entry needs `src`, the file's real pixel `w`/`h`
+   (these set the tile's shape and stop the layout shifting while it loads),
+   an `alt` description, and a `caption` naming the event it actually came
+   from. Add landscape and portrait photos alternately: the list is split
+   into two rows down the middle, so alternating keeps both rows mixed.
+2. **Directory panels** — the four `--panel-image` lines in the
+   "DIRECTORY PANEL IMAGERY" block at the top of `css/components.css`.
+   That block is the only place those photos are set.
+3. **Experience rows** — the `data-image` attributes in `index.html`.
+4. **Hero / members page** — the CSS variables noted in the TODO comments in
    `index.html` and `members.html`.
 
-Prefer WebP/AVIF with compressed JPG fallbacks; keep files under ~400KB.
+Photos are resized to ~1200px on the long edge and saved as progressive JPEG
+at quality ~76 (roughly 120–220 KB each). Keep new files in that range.
 
 ## How to connect the application & contact forms
 
@@ -107,7 +120,12 @@ handler marked `DEMO ONLY` in `js/forms.js`.
 
 ## Content still pending (search the code for `TODO(client)`)
 
-- All event photography (gallery, experience rows, directory panels, hero)
+- Photography for every event other than padel. The Recent Moments gallery
+  currently shows only the 1 August padel event, so every caption there reads
+  "Padel Experience". Game Night with BS Miami, The War for Your Attention
+  with Andrés Preschel, This Summer We Create, and the Mentorship Experience
+  with Moshe Mana all still need photos before the archive feels complete.
+- Photography for the hero and the experience rows
 - Exported vector logo (the mark is currently a typographic lockup)
 - Real mentor roster in `content/mentors.json`
 - Mentorship Experience with Moshe Mana — date/time/location for the calendar

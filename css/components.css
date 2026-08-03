@@ -116,62 +116,88 @@
 }
 
 /* ==========================================================================
-   RECENT MOMENTS — continuous editorial photo strip (Soho House-inspired).
-   Track is duplicated in JS for a seamless translate3d loop.
+   RECENT MOMENTS — editorial photo wall of real event photography.
+   Two staggered drifting rows on desktop (js/gallery.js); a single swipe row
+   with native momentum scrolling on mobile and under reduced-motion.
    ========================================================================== */
 .tp-moments-heading { text-align: center; margin-bottom: var(--space-xl); }
 .tp-moments-heading h2 { font-family: var(--font-mark); font-weight: 500; font-size: 40px; margin-bottom: 12px; }
 .tp-moments-heading p { color: var(--tp-ink-muted); font-size: 18px; }
-.tp-marquee {
+
+.tp-gallery {
   position: relative;
   overflow: hidden;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
 }
-.tp-marquee.is-dragging { cursor: grabbing; }
-.tp-marquee-track {
+.tp-gallery.is-dragging { cursor: grabbing; }
+.tp-gallery-row {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   width: max-content;
   will-change: transform;
 }
-.tp-marquee-item {
+.tp-gallery-row + .tp-gallery-row { margin-top: 8px; }
+
+.tp-gallery-item {
   position: relative;
   flex: 0 0 auto;
-  height: 340px;
+  height: 330px;
+  margin: 0;
   overflow: hidden;
+  border-radius: 1px;
+  /* Branded fallback: also what shows if a photo ever fails to load */
   background: linear-gradient(150deg, #33170f 0%, #241009 55%, #2e1a10 100%);
 }
-/* Mixed editorial widths */
-.tp-marquee-item.is-wide { width: 460px; }
-.tp-marquee-item.is-standard { width: 320px; }
-.tp-marquee-item.is-narrow { width: 240px; }
-.tp-marquee-item img {
-  width: 100%; height: 100%; object-fit: cover;
+.tp-gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
   pointer-events: none;
+  transition: transform 700ms var(--ease-out);
 }
-.tp-marquee-caption {
+.tp-gallery-item:hover img { transform: scale(1.015); }
+
+.tp-gallery-caption {
   position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 40px 20px 16px;
-  background: linear-gradient(0deg, rgba(40,15,9,.8), transparent);
+  padding: 44px 14px 12px;
+  background: linear-gradient(0deg, rgba(40, 15, 9, 0.78) 0%, rgba(40, 15, 9, 0) 100%);
   color: var(--tp-cream);
   font-family: var(--font-cta);
-  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  /* Quiet by default so a wall of same-event labels reads as metadata,
+     not as repetition; sharpens when a photo is hovered. */
+  opacity: 0.6;
+  transition: opacity var(--dur-btn) var(--ease-out);
 }
-.tp-marquee-nav {
+.tp-gallery-item:hover .tp-gallery-caption { opacity: 1; }
+
+/* Mobile / reduced-motion: one horizontally scrollable row */
+.tp-gallery.is-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  cursor: default;
+}
+.tp-gallery.is-scroll::-webkit-scrollbar { display: none; }
+.tp-gallery.is-scroll .tp-gallery-row { padding: 0 20px; }
+.tp-gallery.is-scroll .tp-gallery-item { scroll-snap-align: center; }
+
+.tp-gallery-nav {
   display: flex; justify-content: center; gap: var(--space-sm); margin-top: var(--space-md);
 }
-.tp-marquee-btn {
+.tp-gallery-btn {
   width: 44px; height: 44px;
-  border: 1px solid rgba(40,15,9,.3);
+  border: 1px solid rgba(40, 15, 9, 0.3);
   border-radius: 50%;
   background: transparent;
   color: var(--tp-espresso);
   font-size: 16px;
   transition: background var(--dur-btn) var(--ease-out), color var(--dur-btn) var(--ease-out);
 }
-.tp-marquee-btn:hover, .tp-marquee-btn:focus-visible { background: var(--tp-espresso); color: var(--tp-cream); }
+.tp-gallery-btn:hover, .tp-gallery-btn:focus-visible { background: var(--tp-espresso); color: var(--tp-cream); }
 
 /* ==========================================================================
    STORY
@@ -287,8 +313,23 @@ a.tp-cal-row:hover { background: rgba(40, 15, 9, 0.03); }
 .tp-cal-empty { padding: 30px 0; color: var(--tp-ink-muted); font-style: italic; }
 
 /* ==========================================================================
-   DIRECTORY — four-panel Zero Bond-inspired section, dark green + gold
+   DIRECTORY — four-panel Zero Bond-inspired section, dark green + gold.
+
+   Layer order inside each panel (this is what makes the hover reveal work):
+     0. .tp-panel__image    the photograph, faded out until hover/focus
+     1. .tp-panel__overlay  dark green scrim, lightens on hover/focus
+     2. .tp-panel__content  gold initials + label, always on top
    ========================================================================== */
+
+/* ── DIRECTORY PANEL IMAGERY — the only place these four photos are set ──
+   TODO(client): the two venue photographs below are of Pamplemousse On The
+   Bay (our Game Night venue) rather than of an event itself. Swap them for
+   approved Their Principles photography when it is available. */
+.tp-panel--about       { --panel-image: url('../assets/images/venues/bay-terrace.jpg'); }
+.tp-panel--application { --panel-image: url('../assets/images/venues/bay-tables.jpg'); }
+.tp-panel--contact     { --panel-image: url('../assets/images/padel/courtside-table.jpg'); }
+.tp-panel--members     { --panel-image: url('../assets/images/padel/group-courtside.jpg'); }
+
 .tp-directory {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -297,41 +338,71 @@ a.tp-cal-row:hover { background: rgba(40, 15, 9, 0.03); }
 }
 .tp-panel {
   position: relative;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  isolation: isolate;
   overflow: hidden;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--tp-green);   /* fallback if a photo fails to load */
   border-right: 1px solid rgba(240, 239, 234, 0.08);
   outline-offset: -3px;
+  cursor: pointer;
 }
 .tp-panel:last-child { border-right: none; }
-.tp-panel-bg {
-  position: absolute; inset: 0;
+
+.tp-panel__image {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: var(--panel-image);
+  background-size: cover;
+  background-position: center;
   opacity: 0;
-  transform: scale(1.06);
-  transition: opacity var(--dur-hover-img) var(--ease-out), transform var(--dur-hover-img) var(--ease-out);
-  background-size: cover; background-position: center;
+  transform: scale(1.04);
+  transition: opacity 650ms var(--ease-out), transform 900ms var(--ease-out);
   pointer-events: none;
 }
-.tp-panel-bg::after {
+.tp-panel__overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background-color: rgba(21, 31, 12, 0.72);
+  transition: background-color 650ms var(--ease-out);
+  pointer-events: none;
+}
+/* A soft vignette behind the initials. Several of these photographs are very
+   high-key (bright ceilings, sand, sky) and the gold letters lose contrast
+   against them; this keeps the letters legible without flattening the photo
+   at the edges of the panel. */
+.tp-panel__overlay::after {
   content: "";
   position: absolute; inset: 0;
-  background: rgba(21, 31, 12, 0.62);
+  background: radial-gradient(ellipse at 50% 46%,
+    rgba(21, 31, 12, 0.42) 0%,
+    rgba(21, 31, 12, 0.16) 52%,
+    rgba(21, 31, 12, 0) 76%);
+  opacity: 0;
+  transition: opacity 650ms var(--ease-out);
 }
-.tp-panel:hover .tp-panel-bg,
-.tp-panel:focus-visible .tp-panel-bg,
-.tp-panel.is-active .tp-panel-bg { opacity: 1; transform: scale(1); }
-.tp-panel-letters {
+.tp-panel__content {
   position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 100%; height: 100%;
+}
+
+.tp-panel:hover .tp-panel__image,
+.tp-panel:focus-visible .tp-panel__image { opacity: 1; transform: scale(1); }
+.tp-panel:hover .tp-panel__overlay,
+.tp-panel:focus-visible .tp-panel__overlay { background-color: rgba(21, 31, 12, 0.40); }
+.tp-panel:hover .tp-panel__overlay::after,
+.tp-panel:focus-visible .tp-panel__overlay::after { opacity: 1; }
+
+.tp-panel-letters {
   font-family: var(--font-mark);
   font-weight: 500;
-  font-size: clamp(40px, 5.2vw, 84px);
-  letter-spacing: 0.08em;
-  line-height: 1.15;
+  font-size: clamp(52px, 6vw, 104px);
+  letter-spacing: 0.06em;
+  line-height: 1.02;
   color: var(--tp-gold);
   text-align: center;
   text-transform: uppercase;
 }
 .tp-panel-label {
-  position: absolute; bottom: 40px; left: 0; right: 0; z-index: 2;
+  position: absolute; bottom: 40px; left: 0; right: 0;
   text-align: center;
   font-family: var(--font-cta);
   font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;

@@ -63,12 +63,11 @@
     <h2>Recent Moments</h2>
     <p>Scenes from the rooms we've already shared.</p>
   </div>
-  <div class="tp-marquee tp-reveal" id="tpMarquee" aria-label="Photographs from recent Their Principles gatherings">
-    <div class="tp-marquee-track"></div>
-  </div>
-  <div class="tp-marquee-nav">
-    <button class="tp-marquee-btn" id="tpMarqueePrev" aria-label="Move gallery backward">&#8249;</button>
-    <button class="tp-marquee-btn" id="tpMarqueeNext" aria-label="Move gallery forward">&#8250;</button>
+  <!-- Photo wall built by js/gallery.js — add or replace photographs there -->
+  <div class="tp-gallery tp-reveal" id="tpGallery" role="group" aria-label="Photographs from recent Their Principles gatherings"></div>
+  <div class="tp-gallery-nav">
+    <button class="tp-gallery-btn" id="tpGalleryPrev" aria-label="Move gallery backward">&#8249;</button>
+    <button class="tp-gallery-btn" id="tpGalleryNext" aria-label="Move gallery forward">&#8250;</button>
   </div>
 </section>
 
@@ -180,27 +179,40 @@
 </section>
 
 <!-- Four-panel directory — Zero Bond-inspired identity moment.
-     TODO(client): set each .tp-panel-bg data-image to a real photograph. -->
+     Each panel's photograph is set in ONE place: the
+     "DIRECTORY PANEL IMAGERY" block at the top of css/components.css. -->
 <section class="tp-directory" aria-label="Directory">
-  <a class="tp-panel" href="about.html">
-    <div class="tp-panel-bg" data-image=""></div>
-    <div class="tp-panel-letters">Ab<br>out</div>
-    <div class="tp-panel-label">About</div>
+  <a class="tp-panel tp-panel--about" href="about.html">
+    <div class="tp-panel__image"></div>
+    <div class="tp-panel__overlay"></div>
+    <div class="tp-panel__content">
+      <div class="tp-panel-letters">T<br>P</div>
+      <div class="tp-panel-label">About</div>
+    </div>
   </a>
-  <a class="tp-panel" href="application.html">
-    <div class="tp-panel-bg" data-image=""></div>
-    <div class="tp-panel-letters">Appli<br>cation</div>
-    <div class="tp-panel-label">Application</div>
+  <a class="tp-panel tp-panel--application" href="application.html">
+    <div class="tp-panel__image"></div>
+    <div class="tp-panel__overlay"></div>
+    <div class="tp-panel__content">
+      <div class="tp-panel-letters">A<br>P</div>
+      <div class="tp-panel-label">Application</div>
+    </div>
   </a>
-  <a class="tp-panel" href="contact.html">
-    <div class="tp-panel-bg" data-image=""></div>
-    <div class="tp-panel-letters">Con<br>tact</div>
-    <div class="tp-panel-label">Contact</div>
+  <a class="tp-panel tp-panel--contact" href="contact.html">
+    <div class="tp-panel__image"></div>
+    <div class="tp-panel__overlay"></div>
+    <div class="tp-panel__content">
+      <div class="tp-panel-letters">C<br>T</div>
+      <div class="tp-panel-label">Contact</div>
+    </div>
   </a>
-  <a class="tp-panel" href="members.html">
-    <div class="tp-panel-bg" data-image=""></div>
-    <div class="tp-panel-letters">Mem<br>bers</div>
-    <div class="tp-panel-label">Members</div>
+  <a class="tp-panel tp-panel--members" href="members.html">
+    <div class="tp-panel__image"></div>
+    <div class="tp-panel__overlay"></div>
+    <div class="tp-panel__content">
+      <div class="tp-panel-letters">M<br>B</div>
+      <div class="tp-panel-label">Members</div>
+    </div>
   </a>
 </section>
 
