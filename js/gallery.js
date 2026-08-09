@@ -14,30 +14,42 @@
   var root = document.getElementById('tpGallery');
   if (!root) return;
 
-  // All photographs below are from the padel event on 1 August 2026 at Epic
-  // Athletic Club (listed on Luma as "July Pass").
+  // Photographs are from real Their Principles gatherings: the padel event at
+  // Epic Athletic Club (listed on Luma as "July Pass"), and the This Summer
+  // We Create workshop. A few (bookstore, boardroom, track) are real member
+  // moments whose specific event TODO(client): confirm/caption once known.
   // TODO(client): supply photography for Game Night with BS Miami, The War for
-  // Your Attention with Andrés Preschel, This Summer We Create, and the
-  // Mentorship Experience with Moshe Mana.
+  // Your Attention with Andrés Preschel, and the Mentorship Experience with
+  // Moshe Mana.
   var PHOTOS = [
-    { src: 'assets/images/padel/doubles-rally.jpg',            w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Members playing a doubles point on the court at Epic Athletic Club' },
-    { src: 'assets/images/padel/group-courtside.jpg',          w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Three members talking courtside between games' },
-    { src: 'assets/images/padel/court-exchange.jpg',           w: 1200, h: 800,  caption: 'Padel Experience', alt: 'An exchange mid-rally across the net' },
-    { src: 'assets/images/padel/player-serving.jpg',           w: 900,  h: 1200, caption: 'Padel Experience', alt: 'A member serving at the start of a point' },
-    { src: 'assets/images/padel/three-players-talking.jpg',    w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Three members in conversation beside the courts' },
-    { src: 'assets/images/padel/players-between-games.jpg',    w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members standing together between matches' },
-    { src: 'assets/images/padel/mixed-doubles.jpg',            w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A mixed doubles point in play' },
-    { src: 'assets/images/padel/courtside-conversation.jpg',   w: 675,  h: 1200, caption: 'Padel Experience', alt: 'Members gathered at the courtside tables' },
-    { src: 'assets/images/padel/rally-in-play.jpg',            w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A long rally in play on the blue court' },
-    { src: 'assets/images/padel/group-talking.jpg',            w: 900,  h: 1200, caption: 'Padel Experience', alt: 'A group of members talking after their match' },
-    { src: 'assets/images/padel/baseline-return.jpg',          w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A return played from the baseline' },
-    { src: 'assets/images/padel/courtside-lounge.jpg',         w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members resting and talking at the courtside lounge' },
-    { src: 'assets/images/padel/players-mid-point.jpg',        w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Wide view of the club with a point underway' },
-    { src: 'assets/images/padel/three-players-portrait.jpg',   w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Three members photographed together on court' },
-    { src: 'assets/images/padel/courtside-table.jpg',          w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Members in conversation around a courtside table' },
-    { src: 'assets/images/padel/player-at-baseline.jpg',       w: 900,  h: 1200, caption: 'Padel Experience', alt: 'A member waiting to receive at the baseline' },
-    { src: 'assets/images/padel/pair-in-conversation.jpg',     w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Two members talking beside the court' },
-    { src: 'assets/images/padel/players-leaving-court.jpg',    w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members walking off the court after a match' }
+    { src: 'assets/images/padel/doubles-rally.jpg',                  w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Members playing a doubles point on the court at Epic Athletic Club' },
+    { src: 'assets/images/padel/group-courtside.jpg',                w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Three members talking courtside between games' },
+    { src: 'assets/images/carousel/create-collage-table-wide.jpg',   w: 900,  h: 1200, caption: 'This Summer We Create', alt: 'Members making vision boards together at the workshop table' },
+    { src: 'assets/images/padel/court-exchange.jpg',                 w: 1200, h: 800,  caption: 'Padel Experience', alt: 'An exchange mid-rally across the net' },
+    { src: 'assets/images/carousel/create-seasons-talk.jpg',         w: 1200, h: 900,  caption: 'This Summer We Create', alt: 'A member leading a talk on seasons and creativity' },
+    { src: 'assets/images/padel/player-serving.jpg',                 w: 900,  h: 1200, caption: 'Padel Experience', alt: 'A member serving at the start of a point' },
+    { src: 'assets/images/carousel/bookstore-browsing.jpg',          w: 900,  h: 1200, alt: 'Two members browsing books together' },
+    { src: 'assets/images/padel/three-players-talking.jpg',          w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Three members in conversation beside the courts' },
+    { src: 'assets/images/carousel/padel-handoff-cards.jpg',         w: 668,  h: 1200, caption: 'Padel Experience', alt: 'Members exchanging matchup cards courtside' },
+    { src: 'assets/images/padel/players-between-games.jpg',          w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members standing together between matches' },
+    { src: 'assets/images/carousel/create-collage-cutting.jpg',      w: 900,  h: 1200, caption: 'This Summer We Create', alt: 'A member cutting out images for a vision board' },
+    { src: 'assets/images/padel/mixed-doubles.jpg',                  w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A mixed doubles point in play' },
+    { src: 'assets/images/carousel/boardroom-workshop.jpg',          w: 900,  h: 1200, alt: 'Members writing at a boardroom table during a session' },
+    { src: 'assets/images/padel/courtside-conversation.jpg',         w: 675,  h: 1200, caption: 'Padel Experience', alt: 'Members gathered at the courtside tables' },
+    { src: 'assets/images/carousel/create-seasons-talk-listening.jpg', w: 1200, h: 900, caption: 'This Summer We Create', alt: 'Members listening during the creative workshop talk' },
+    { src: 'assets/images/padel/rally-in-play.jpg',                  w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A long rally in play on the blue court' },
+    { src: 'assets/images/carousel/track-workout-lineup.jpg',        w: 900,  h: 1200, alt: 'Members lined up on a track before a workout' },
+    { src: 'assets/images/padel/group-talking.jpg',                  w: 900,  h: 1200, caption: 'Padel Experience', alt: 'A group of members talking after their match' },
+    { src: 'assets/images/carousel/padel-post-match-handshake.jpg',  w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members shaking hands after a match on the padel court' },
+    { src: 'assets/images/padel/baseline-return.jpg',                w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A return played from the baseline' },
+    { src: 'assets/images/padel/courtside-lounge.jpg',               w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members resting and talking at the courtside lounge' },
+    { src: 'assets/images/carousel/create-seasons-talk-group.jpg',   w: 1200, h: 900,  caption: 'This Summer We Create', alt: 'The group gathered for the creative workshop talk' },
+    { src: 'assets/images/padel/players-mid-point.jpg',              w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Wide view of the club with a point underway' },
+    { src: 'assets/images/padel/three-players-portrait.jpg',         w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Three members photographed together on court' },
+    { src: 'assets/images/padel/courtside-table.jpg',                w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Members in conversation around a courtside table' },
+    { src: 'assets/images/padel/player-at-baseline.jpg',             w: 900,  h: 1200, caption: 'Padel Experience', alt: 'A member waiting to receive at the baseline' },
+    { src: 'assets/images/padel/pair-in-conversation.jpg',           w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Two members talking beside the court' },
+    { src: 'assets/images/padel/players-leaving-court.jpg',          w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members walking off the court after a match' }
   ];
 
   // Heights only — each tile's WIDTH is derived from the photo's own w/h, so
