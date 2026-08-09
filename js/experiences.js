@@ -14,7 +14,7 @@
       bg.style.backgroundImage = 'url("' + src + '")';
     } else {
       bg.style.backgroundImage =
-        'linear-gradient(150deg, rgba(168,137,78,0.14) 0%, rgba(40,15,9,0.4) 60%, rgba(21,31,12,0.5) 100%)';
+        'linear-gradient(150deg, rgba(240,239,234,0.14) 0%, rgba(40,15,9,0.4) 60%, rgba(40,15,9,0.5) 100%)';
     }
   });
 

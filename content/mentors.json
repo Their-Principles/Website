@@ -6,15 +6,21 @@
     "photo": "assets/images/mentors/alvaro-schocair.jpg"
   },
   {
-    "name": "TODO: Mentor Name",
-    "affiliation": "TODO: Company / Title",
-    "bio": "TODO: one to two sentence bio — what this mentor brings to Their Principles members.",
-    "photo": ""
+    "name": "Andrés Preschel",
+    "affiliation": "Founder & CEO, Know Your Physio",
+    "bio": "Applied physiologist and health optimization consultant for high performers, helping clients harness physiological awareness for better performance, disease prevention, and longevity. Founder of Know Your Physio and host of a top 1% health podcast.",
+    "photo": "assets/images/mentors/andres-preschel.webp"
   },
   {
-    "name": "TODO: Mentor Name",
-    "affiliation": "TODO: Company / Title",
-    "bio": "TODO: one to two sentence bio — what this mentor brings to Their Principles members.",
-    "photo": ""
+    "name": "Wilma de Souza",
+    "affiliation": "Strategic Advisor, WRS Strategic & Co",
+    "bio": "Business and investment strategist with an 18-year track record spanning investment banking and international business development, from Wall Street to boardrooms across five continents. Certified in Venture Capital and Investor Due Diligence by Columbia Business School.",
+    "photo": "assets/images/mentors/wilma-de-souza.jpeg"
+  },
+  {
+    "name": "Eduardo Lins Henrique",
+    "affiliation": "Co-Founder, Empower Business School",
+    "bio": "Co-founder of Empower Business School, a mentorship and course platform helping professionals reach leadership positions in an increasingly global, competitive market. Completed his first marathon at 47 and an Ironman 70.3, bringing the same discipline to business mentorship.",
+    "photo": "assets/images/mentors/eduardo-lins-henrique.jpeg"
   }
 ]

@@ -13,7 +13,7 @@
 }
 .tp-nav.is-hidden { transform: translateY(-100%); }
 .tp-nav.is-solid {
-  background: var(--tp-espresso);
+  background: var(--brand-burgundy);
   padding: 14px 40px;
   box-shadow: 0 1px 0 var(--tp-hairline-on-dark);
 }
@@ -49,7 +49,7 @@
   padding: 10px 4px; /* generous touch target */
 }
 .tp-nav-overlay {
-  position: fixed; inset: 0; z-index: 99; background: var(--tp-espresso);
+  position: fixed; inset: 0; z-index: 99; background: var(--brand-burgundy);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: var(--space-lg);
   opacity: 0; visibility: hidden;
@@ -57,7 +57,7 @@
 }
 .tp-nav-overlay.is-open { opacity: 1; visibility: visible; transition-delay: 0s; }
 .tp-nav-overlay a { color: var(--tp-cream); font-size: 24px; font-family: var(--font-mark); padding: 6px 20px; }
-.tp-nav-overlay a[aria-current="page"] { color: var(--tp-gold); }
+.tp-nav-overlay a[aria-current="page"] { color: var(--tp-cream); font-weight: 600; }
 
 /* ==========================================================================
    HERO
@@ -70,7 +70,7 @@
   text-align: center;
   color: var(--tp-cream);
   overflow: hidden;
-  background-color: var(--tp-espresso);
+  background-color: var(--brand-burgundy);
   background-image:
     linear-gradient(180deg, rgba(40,15,9,.35) 0%, rgba(40,15,9,.6) 55%, rgba(40,15,9,.96) 100%),
     var(--tp-hero-photo, none);
@@ -79,7 +79,7 @@
 }
 /* TODO(client): when a real hero event photo exists, set on .tp-hero:
    style="--tp-hero-photo:url('assets/images/hero/hero.jpg')" */
-.tp-hero-inner { position: relative; z-index: 2; max-width: 640px; padding: 0 40px; }
+.tp-hero-inner { position: relative; z-index: 2; max-width: 900px; padding: 0 40px; }
 .tp-hero-eyebrow {
   display: inline-block;
   font-family: var(--font-cta);
@@ -92,7 +92,10 @@
 }
 .tp-hero h1 {
   font-family: var(--font-mark); font-weight: 500; text-transform: uppercase;
-  font-size: 68px; letter-spacing: .04em; line-height: 1.05; margin-bottom: 20px;
+  /* one single line at every width — shrinks with the viewport instead of wrapping */
+  white-space: nowrap;
+  font-size: clamp(28px, 8vw, 68px);
+  letter-spacing: .04em; line-height: 1.05; margin-bottom: 20px;
 }
 .tp-hero-divider { width: 40px; height: 1px; background: var(--tp-cream-on-dark-70); margin: 0 auto 20px; }
 .tp-hero-tag {
@@ -107,7 +110,7 @@
 /* ==========================================================================
    STATS — values injected from communityStats in js/events.js
    ========================================================================== */
-.tp-stats { background: var(--tp-burgundy); color: var(--tp-cream); padding: var(--space-xl) 0; }
+.tp-stats { background: var(--brand-burgundy); color: var(--tp-cream); padding: var(--space-xl) 0; }
 .tp-stats .tp-wrap { display: flex; justify-content: center; gap: 110px; text-align: center; flex-wrap: wrap; }
 .tp-stat-num { font-family: var(--font-mark); font-size: 54px; line-height: 1; }
 .tp-stat-label {
@@ -116,29 +119,33 @@
 }
 
 /* ==========================================================================
-   RECENT MOMENTS — editorial photo wall of real event photography.
-   Two staggered drifting rows on desktop (js/gallery.js); a single swipe row
-   with native momentum scrolling on mobile and under reduced-motion.
+   RECENT MOMENTS — a single full-bleed row of real event photography that
+   scrolls horizontally (trackpad, touch, mouse drag, or the arrow controls).
+   Built by js/gallery.js. This section carries no text.
    ========================================================================== */
-.tp-moments-heading { text-align: center; margin-bottom: var(--space-xl); }
-.tp-moments-heading h2 { font-family: var(--font-mark); font-weight: 500; font-size: 40px; margin-bottom: 12px; }
-.tp-moments-heading p { color: var(--tp-ink-muted); font-size: 18px; }
+/* The carousel now sits inside Who We Are, below the small wordmark. */
+.tp-story .tp-gallery { margin-top: var(--space-2xl); }
 
 .tp-gallery {
   position: relative;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;   /* momentum scrolling on iOS */
+  /* No scroll-snap here on purpose: it cancels the smooth programmatic
+     scrolling the ‹ › arrows rely on, snapping the row back to the start. */
+  scrollbar-width: none;               /* Firefox */
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
 }
+.tp-gallery::-webkit-scrollbar { display: none; }
 .tp-gallery.is-dragging { cursor: grabbing; }
 .tp-gallery-row {
   display: flex;
   gap: 8px;
   width: max-content;
-  will-change: transform;
+  padding: 0 20px;
 }
-.tp-gallery-row + .tp-gallery-row { margin-top: 8px; }
 
 .tp-gallery-item {
   position: relative;
@@ -146,13 +153,17 @@
   height: 330px;
   margin: 0;
   overflow: hidden;
-  border-radius: 1px;
+  border-radius: 10px;   /* soft corners, consistent across every photo */
   /* Branded fallback: also what shows if a photo ever fails to load */
-  background: linear-gradient(150deg, #33170f 0%, #241009 55%, #2e1a10 100%);
+  background: var(--brand-burgundy);
 }
 .tp-gallery-item img {
   width: 100%; height: 100%;
-  object-fit: cover;
+  /* The tile's width is derived from the photo's own w/h in js/gallery.js, so
+     the box already matches the image exactly. `contain` guarantees that even
+     if a declared dimension were ever wrong, the full photo still shows
+     rather than being silently cropped. */
+  object-fit: contain;
   display: block;
   pointer-events: none;
   transition: transform 700ms var(--ease-out);
@@ -173,40 +184,30 @@
 }
 .tp-gallery-item:hover .tp-gallery-caption { opacity: 1; }
 
-/* Mobile / reduced-motion: one horizontally scrollable row */
-.tp-gallery.is-scroll {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x proximity;
-  scrollbar-width: none;
-  cursor: default;
-}
-.tp-gallery.is-scroll::-webkit-scrollbar { display: none; }
-.tp-gallery.is-scroll .tp-gallery-row { padding: 0 20px; }
-.tp-gallery.is-scroll .tp-gallery-item { scroll-snap-align: center; }
 
 .tp-gallery-nav {
   display: flex; justify-content: center; gap: var(--space-sm); margin-top: var(--space-md);
 }
 .tp-gallery-btn {
   width: 44px; height: 44px;
-  border: 1px solid rgba(40, 15, 9, 0.3);
+  border: 1px solid rgba(240, 239, 234, 0.4);
   border-radius: 50%;
   background: transparent;
-  color: var(--tp-espresso);
+  color: var(--tp-cream);
   font-size: 16px;
   transition: background var(--dur-btn) var(--ease-out), color var(--dur-btn) var(--ease-out);
 }
-.tp-gallery-btn:hover, .tp-gallery-btn:focus-visible { background: var(--tp-espresso); color: var(--tp-cream); }
+.tp-gallery-btn:hover, .tp-gallery-btn:focus-visible { background: var(--tp-cream); color: var(--brand-burgundy); }
 
 /* ==========================================================================
    STORY
    ========================================================================== */
 .tp-story-mark {
   aspect-ratio: 1 / 1.15;
-  background: var(--tp-espresso);
+  background: var(--brand-burgundy);
   color: var(--tp-cream);
-  border: 1px solid rgba(168, 137, 78, 0.2); /* whisper of gold */
+  border: 1px solid var(--tp-gold-dim); /* the card now sits on the same
+     brand background, so the gold frame is what defines it as a panel */
   display: flex; align-items: center; justify-content: center; text-align: center;
   padding: var(--space-lg);
   border-radius: var(--tp-radius);
@@ -216,12 +217,12 @@
 .tp-story-mark .tp-brandmark { font-size: 32px; letter-spacing: .12em; text-transform: uppercase; line-height: 1.35; }
 .tp-story-mark .tp-mark-divider { width: 40px; height: 1px; background: var(--tp-gold-dim); margin: 18px auto; }
 .tp-story-mark .tp-mark-tag { font-family: var(--font-cta); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--tp-cream-on-dark-70); }
-.tp-story-mark .tp-mark-est { font-family: var(--font-cta); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; color: var(--tp-cream-on-dark-40); margin-top: 14px; }
-.tp-story h2 { font-family: var(--font-mark); font-weight: 500; font-size: 40px; margin-bottom: 24px; }
+.tp-story-mark .tp-mark-est { font-family: var(--font-cta); font-size: 9px; letter-spacing: .24em; text-transform: uppercase; color: var(--tp-ink-muted); margin-top: 14px; }
+.tp-story h2 { font-family: var(--font-title); font-weight: 500; font-size: 40px; margin-bottom: 24px; }
 .tp-story p { font-size: 19px; margin-bottom: 20px; color: var(--tp-ink-soft); max-width: 62ch; }
 .tp-story p.tp-pull {
   font-family: var(--font-mark); font-size: 25px; font-style: italic;
-  color: var(--tp-burgundy); line-height: 1.4;
+  color: var(--tp-gold); line-height: 1.4;
 }
 .tp-story-shift {
   margin-top: 28px; padding-top: 28px;
@@ -229,14 +230,24 @@
   font-size: 16px; color: var(--tp-ink-muted);
 }
 
+/* Small wordmark closing the copy block — same treatment as the eyebrow labels */
+.tp-story-wordmark {
+  margin-top: var(--space-lg);
+  font-family: var(--font-cta);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tp-cream);
+}
 /* ==========================================================================
    EXPERIENCES — dark editorial rows; a photograph fades in across the full
    row on hover/focus (desktop) or when centered in viewport (mobile,
    toggled by js/experiences.js adding .is-active).
    ========================================================================== */
-.tp-experiences { background: var(--tp-espresso); color: var(--tp-cream); }
-.tp-experiences .tp-eyebrow { color: var(--tp-gold); }
-.tp-experiences h2 { color: var(--tp-cream); font-family: var(--font-mark); font-weight: 500; font-size: 40px; margin-bottom: 16px; }
+.tp-experiences { background: var(--brand-burgundy); color: var(--tp-cream); }
+.tp-experiences .tp-eyebrow { color: var(--tp-cream); }
+.tp-experiences h2 { color: var(--tp-cream); font-family: var(--font-title); font-weight: 500; font-size: 40px; margin-bottom: 16px; }
 .tp-experiences-intro { max-width: 600px; color: var(--tp-cream-on-dark-70); font-size: 19px; margin-bottom: var(--space-xl); }
 .tp-exp-row {
   position: relative;
@@ -277,170 +288,38 @@
   transition: color var(--dur-btn) var(--ease-out);
 }
 .tp-exp-row:hover .tp-exp-label,
-.tp-exp-row.is-active .tp-exp-label { color: var(--tp-gold); }
-.tp-exp-inner h3 { font-family: var(--font-mark); font-size: 28px; font-weight: 500; margin-bottom: 12px; color: var(--tp-cream); }
+.tp-exp-row.is-active .tp-exp-label { color: var(--tp-cream); font-weight: 600; }
+.tp-exp-inner h3 { font-family: var(--font-title); font-size: 28px; font-weight: 500; margin-bottom: 12px; color: var(--tp-cream); }
 .tp-exp-inner p { font-size: 18px; color: var(--tp-cream-on-dark-70); max-width: 60ch; }
 
 /* ==========================================================================
    CALENDAR — rendered from structured data in js/events.js
    ========================================================================== */
-.tp-calendar-intro { max-width: 560px; color: var(--tp-ink-soft); font-size: 19px; margin-bottom: var(--space-lg); }
-.tp-cal-filters { display: flex; gap: var(--space-md); margin-bottom: var(--space-md); }
-.tp-cal-filter {
-  background: none; border: none;
-  font-family: var(--font-cta); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--tp-ink-muted);
-  padding: 8px 2px;
-  border-bottom: 1px solid transparent;
-  transition: color var(--dur-btn) var(--ease-out), border-color var(--dur-btn) var(--ease-out);
-}
-.tp-cal-filter:hover { color: var(--tp-espresso); }
-.tp-cal-filter[aria-pressed="true"] { color: var(--tp-espresso); border-bottom-color: var(--tp-gold); }
-.tp-cal-list { border-top: 1px solid var(--tp-hairline-on-light); }
-.tp-cal-row {
-  display: grid; grid-template-columns: 110px 1fr 220px 120px; gap: var(--space-md); align-items: center;
-  padding: 26px 0; border-bottom: 1px solid var(--tp-hairline-on-light);
-}
-a.tp-cal-row { transition: background var(--dur-btn) var(--ease-out); }
-a.tp-cal-row:hover { background: rgba(40, 15, 9, 0.03); }
-.tp-cal-date { font-family: var(--font-mark); font-size: 25px; color: var(--tp-burgundy); }
-.tp-cal-date span { display: block; font-family: var(--font-cta); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--tp-ink-muted); }
-.tp-cal-name { font-size: 19px; }
-.tp-cal-name small { display: block; font-family: var(--font-cta); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--tp-ink-muted); margin-top: 4px; }
-.tp-cal-loc { font-family: var(--font-cta); font-size: 12px; letter-spacing: .05em; color: var(--tp-ink-muted); }
-.tp-status { font-size: 11px; text-align: right; color: var(--tp-ink-muted); }
-.tp-status.is-open { color: #2F5C2F; }
-.tp-cal-empty { padding: 30px 0; color: var(--tp-ink-muted); font-style: italic; }
-
-/* ==========================================================================
-   DIRECTORY — four-panel Zero Bond-inspired section, dark green + gold.
-
-   Layer order inside each panel (this is what makes the hover reveal work):
-     0. .tp-panel__image    the photograph, faded out until hover/focus
-     1. .tp-panel__overlay  dark green scrim, lightens on hover/focus
-     2. .tp-panel__content  gold initials + label, always on top
-   ========================================================================== */
-
-/* ── DIRECTORY PANEL IMAGERY — the only place these four photos are set ──
-   TODO(client): the two venue photographs below are of Pamplemousse On The
-   Bay (our Game Night venue) rather than of an event itself. Swap them for
-   approved Their Principles photography when it is available.
-   TODO(client): the Contact panel is a generic stock photo (540x360 source —
-   will look soft on large screens) used only as a temporary placeholder.
-   Replace with real Their Principles photography when available.
-   TODO(client): the Members panel photo you asked for (a group talking in a
-   circle, shot from behind) could not be saved from the chat — see the
-   note in README.md. Still showing the padel group photo until it's supplied. */
-.tp-panel--about       { --panel-image: url('../assets/images/venues/bay-terrace.jpg'); }
-.tp-panel--application { --panel-image: url('../assets/images/venues/bay-tables.jpg'); }
-.tp-panel--contact     { --panel-image: url('../assets/images/stock/miami-skyline-palms.jpg'); }
-.tp-panel--members     { --panel-image: url('../assets/images/padel/group-courtside.jpg'); }
-
-.tp-directory {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  min-height: 92vh;
-  background: var(--tp-green);
-}
-.tp-panel {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  background: var(--tp-green);   /* fallback if a photo fails to load */
-  border-right: 1px solid rgba(240, 239, 234, 0.08);
-  outline-offset: -3px;
-  cursor: pointer;
-}
-.tp-panel:last-child { border-right: none; }
-
-.tp-panel__image {
-  position: absolute; inset: 0; z-index: 0;
-  background-image: var(--panel-image);
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transform: scale(1.04);
-  transition: opacity 650ms var(--ease-out), transform 900ms var(--ease-out);
-  pointer-events: none;
-}
-.tp-panel__overlay {
-  position: absolute; inset: 0; z-index: 1;
-  background-color: rgba(21, 31, 12, 0.72);
-  transition: background-color 650ms var(--ease-out);
-  pointer-events: none;
-}
-/* A soft vignette behind the initials. Several of these photographs are very
-   high-key (bright ceilings, sand, sky) and the gold letters lose contrast
-   against them; this keeps the letters legible without flattening the photo
-   at the edges of the panel. */
-.tp-panel__overlay::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 50% 46%,
-    rgba(21, 31, 12, 0.42) 0%,
-    rgba(21, 31, 12, 0.16) 52%,
-    rgba(21, 31, 12, 0) 76%);
-  opacity: 0;
-  transition: opacity 650ms var(--ease-out);
-}
-.tp-panel__content {
-  position: relative; z-index: 2;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  width: 100%; height: 100%;
-}
-
-.tp-panel:hover .tp-panel__image,
-.tp-panel:focus-visible .tp-panel__image { opacity: 1; transform: scale(1); }
-.tp-panel:hover .tp-panel__overlay,
-.tp-panel:focus-visible .tp-panel__overlay { background-color: rgba(21, 31, 12, 0.40); }
-.tp-panel:hover .tp-panel__overlay::after,
-.tp-panel:focus-visible .tp-panel__overlay::after { opacity: 1; }
-
-.tp-panel-letters {
-  font-family: var(--font-mark);
-  font-weight: 500;
-  font-size: clamp(52px, 6vw, 104px);
-  letter-spacing: 0.06em;
-  line-height: 1.02;
-  color: var(--tp-gold);
-  text-align: center;
-  text-transform: uppercase;
-}
-.tp-panel-label {
-  position: absolute; bottom: 40px; left: 0; right: 0;
-  text-align: center;
-  font-family: var(--font-cta);
-  font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--tp-cream-on-dark-70);
-  transition: color var(--dur-btn) var(--ease-out);
-}
-.tp-panel:hover .tp-panel-label,
-.tp-panel:focus-visible .tp-panel-label { color: var(--tp-cream); }
+/* Generic empty-state note (used by the mentor grid) */
+.tp-empty-note { padding: 30px 0; color: var(--tp-ink-muted); font-style: italic; }
 
 /* ==========================================================================
    CTA SECTION
    ========================================================================== */
-.tp-cta { background: var(--tp-espresso); color: var(--tp-cream); text-align: center; }
-.tp-cta .tp-eyebrow { color: var(--tp-gold); }
-.tp-cta h2 { color: var(--tp-cream); font-family: var(--font-mark); font-weight: 500; font-size: 42px; margin-bottom: 16px; }
-.tp-cta-intro { max-width: 500px; margin: 0 auto var(--space-xl); color: var(--tp-cream-on-dark-70); font-size: 19px; }
-.tp-cta-primary-wrap { margin-bottom: var(--space-xl); }
+.tp-cta { background: var(--brand-burgundy); color: var(--tp-cream); text-align: center; }
+.tp-cta .tp-eyebrow { color: var(--tp-cream-on-dark-70); }
+.tp-cta h2 { color: var(--tp-cream-on-dark-70); font-family: var(--font-title); font-weight: 500; font-size: 28px; margin-bottom: 10px; }
+.tp-cta-intro { max-width: 500px; margin: 0 auto var(--space-xl); color: var(--tp-cream-on-dark-70); font-size: 17px; }
 .tp-cta-doors {
-  display: flex; justify-content: center; gap: var(--space-lg); flex-wrap: wrap;
-  max-width: 680px; margin: 0 auto;
-  padding-top: var(--space-lg);
+  display: flex; justify-content: center; gap: var(--space-xl); flex-wrap: wrap;
+  max-width: 760px; margin: 0 auto;
+  padding-top: var(--space-xl);
   border-top: 1px solid var(--tp-hairline-on-dark);
 }
 .tp-cta-door { flex: 1; min-width: 250px; text-align: left; }
-.tp-cta-door h3 { font-family: var(--font-mark); font-size: 22px; font-weight: 500; margin-bottom: 8px; color: var(--tp-cream); }
+.tp-cta-door h3 { font-family: var(--font-title); font-size: 28px; font-weight: 500; margin-bottom: 10px; color: var(--tp-cream); }
 .tp-cta-door p { font-size: 15px; color: var(--tp-cream-on-dark-70); margin-bottom: 18px; }
 .tp-cta-door .tp-btn { width: 100%; font-size: 11px; padding: 15px 20px; }
 
 /* ==========================================================================
    FOOTER
    ========================================================================== */
-.tp-footer { background: var(--tp-burgundy); color: var(--tp-cream); padding: var(--space-xl) 0; text-align: center; }
+.tp-footer { background: var(--brand-burgundy); color: var(--tp-cream); padding: var(--space-xl) 0; text-align: center; }
 .tp-footer .tp-brandmark { font-size: 22px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 10px; }
 .tp-footer-meta {
   font-family: var(--font-cta); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;

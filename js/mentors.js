@@ -8,7 +8,7 @@
     .then(render)
     .catch(function (err) {
       console.error('Could not load content/mentors.json', err);
-      grid.innerHTML = '<p class="tp-cal-empty">Mentor profiles coming soon.</p>';
+      grid.innerHTML = '<p class="tp-empty-note">Mentor profiles coming soon.</p>';
     });
 
   function render(mentors) {

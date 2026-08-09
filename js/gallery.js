@@ -1,14 +1,14 @@
-// Recent Moments — editorial photo wall of real Their Principles events.
+// Recent Moments — one continuous carousel of real Their Principles photography.
 //
-// Desktop: two staggered rows drifting slowly left→right on a seamless loop.
-// Mobile / reduced-motion: a single horizontal swipe row with native momentum
-// scrolling. No external libraries.
+// It drifts slowly left→right on its own, loops seamlessly, and stays fully
+// hand-controllable at any moment: trackpad, touch swipe, mouse drag, or the
+// ‹ › arrows. The drift is built on the element's own scroll position rather
+// than a CSS transform, which is what lets native swiping keep working.
 //
 // ── HOW TO ADD PHOTOS ──────────────────────────────────────────────────────
-// Add an entry to PHOTOS below. `w`/`h` are the file's real pixel dimensions
-// (they set the tile's aspect ratio and reserve space so nothing shifts while
-// images load). Use only real Their Principles photography, and only a caption
-// that names the event the photo actually came from.
+// Add an entry to PHOTOS below. `w`/`h` are the file's real pixel dimensions:
+// each tile's width is derived from them so every photo keeps its exact
+// proportions and is never cropped or stretched.
 // ───────────────────────────────────────────────────────────────────────────
 (function () {
   var root = document.getElementById('tpGallery');
@@ -18,8 +18,7 @@
   // Athletic Club (listed on Luma as "July Pass").
   // TODO(client): supply photography for Game Night with BS Miami, The War for
   // Your Attention with Andrés Preschel, This Summer We Create, and the
-  // Mentorship Experience with Moshe Mana — then add them here with their own
-  // captions so the archive covers every event, not only padel.
+  // Mentorship Experience with Moshe Mana.
   var PHOTOS = [
     { src: 'assets/images/padel/doubles-rally.jpg',            w: 1200, h: 800,  caption: 'Padel Experience', alt: 'Members playing a doubles point on the court at Epic Athletic Club' },
     { src: 'assets/images/padel/group-courtside.jpg',          w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Three members talking courtside between games' },
@@ -30,7 +29,6 @@
     { src: 'assets/images/padel/mixed-doubles.jpg',            w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A mixed doubles point in play' },
     { src: 'assets/images/padel/courtside-conversation.jpg',   w: 675,  h: 1200, caption: 'Padel Experience', alt: 'Members gathered at the courtside tables' },
     { src: 'assets/images/padel/rally-in-play.jpg',            w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A long rally in play on the blue court' },
-
     { src: 'assets/images/padel/group-talking.jpg',            w: 900,  h: 1200, caption: 'Padel Experience', alt: 'A group of members talking after their match' },
     { src: 'assets/images/padel/baseline-return.jpg',          w: 1200, h: 800,  caption: 'Padel Experience', alt: 'A return played from the baseline' },
     { src: 'assets/images/padel/courtside-lounge.jpg',         w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members resting and talking at the courtside lounge' },
@@ -42,74 +40,68 @@
     { src: 'assets/images/padel/players-leaving-court.jpg',    w: 900,  h: 1200, caption: 'Padel Experience', alt: 'Members walking off the court after a match' }
   ];
 
-  var ROW_HEIGHT = 330;         // desktop tile height; widths follow each photo's aspect
-  var ROW_HEIGHT_NARROW = 290;  // mobile: keeps roughly 1.2–1.4 tiles in view
-  var GAP = 8;
-  var LOOP_SECONDS = 60;  // one full pass of the strip
-  var HOVER_FACTOR = 0.25;
+  // Heights only — each tile's WIDTH is derived from the photo's own w/h, so
+  // shrinking these scales the whole photo proportionally and never crops it.
+  var ROW_HEIGHT = 250;         // desktop
+  var ROW_HEIGHT_NARROW = 190;  // phones
+  var SPEED = 40;               // px per second — a slow, readable drift
+  var HOVER_SPEED = 0;          // pause while the pointer is over the strip
+  var ARROW_MS = 520;
 
-  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var isNarrow = window.matchMedia('(max-width: 860px)');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  var rows = [];          // { el, offset, half, speed, direction }
-  var rafId = null;
-  var lastTime = null;
+  var pos = 0;          // our own float scroll position (scrollLeft is integer-ish)
+  var lastApplied = 0;  // what we last wrote, so we can spot user-driven scrolling
+  var setWidth = 0;     // width of ONE copy of the photo set — the loop length
   var speedFactor = 1;
   var dragging = false;
-  var mode = null;
+  var tween = null;
+  var rafId = null;
+  var lastTime = null;
+  var currentHeight = null;
 
   build();
-  window.addEventListener('resize', debounce(build, 200));
-  prefersReducedMotion.addEventListener('change', build);
+  window.addEventListener('resize', debounce(function () {
+    if (tileHeight() !== currentHeight) build(); else measure();
+  }, 200));
+
+  function tileHeight() { return isNarrow.matches ? ROW_HEIGHT_NARROW : ROW_HEIGHT; }
 
   function build() {
-    var nextMode = (isNarrow.matches || prefersReducedMotion.matches) ? 'scroll' : 'marquee';
-    if (nextMode === mode && mode === 'marquee') { measure(); return; }
-    mode = nextMode;
-
     stop();
-    rows = [];
+    currentHeight = tileHeight();
     root.textContent = '';
-    root.classList.toggle('is-scroll', mode === 'scroll');
 
-    if (mode === 'scroll') {
-      // Single swipe row, native momentum scrolling, every photo present.
-      var row = document.createElement('div');
-      row.className = 'tp-gallery-row';
-      PHOTOS.forEach(function (p) { row.appendChild(makeTile(p)); });
-      root.appendChild(row);
-      return;
-    }
-
-    // Two staggered rows. PHOTOS alternates landscape/portrait, so splitting it
-    // into contiguous halves gives each row a mix of widths (taking every other
-    // photo would put all the landscapes in one row and all the portraits in
-    // the other).
-    var midpoint = Math.ceil(PHOTOS.length / 2);
-    [0, 1].forEach(function (index) {
-      var set = index === 0 ? PHOTOS.slice(0, midpoint) : PHOTOS.slice(midpoint);
-      var el = document.createElement('div');
-      el.className = 'tp-gallery-row';
-      // Duplicated once so the loop can wrap with no visible seam.
-      set.concat(set).forEach(function (p, i) {
-        var tile = makeTile(p);
-        if (i >= set.length) tile.setAttribute('aria-hidden', 'true');
-        el.appendChild(tile);
-      });
-      root.appendChild(el);
-      rows.push({ el: el, offset: 0, half: 0, speed: 0 });
+    var row = document.createElement('div');
+    row.className = 'tp-gallery-row';
+    // Two consecutive copies: once the first copy has scrolled past, we jump
+    // back by exactly one copy's width — identical pixels, so no visible seam.
+    PHOTOS.concat(PHOTOS).forEach(function (p, i) {
+      var tile = makeTile(p, currentHeight);
+      if (i >= PHOTOS.length) tile.setAttribute('aria-hidden', 'true');
+      row.appendChild(tile);
     });
+    root.appendChild(row);
 
     measure();
-    if (!prefersReducedMotion.matches) start();
-    bindMarqueeEvents();
+    bindOnce();
+    if (!reduceMotion.matches) start();
   }
 
-  function makeTile(photo) {
-    var height = mode === 'scroll' ? ROW_HEIGHT_NARROW : ROW_HEIGHT;
+  function measure() {
+    var tiles = root.querySelectorAll('.tp-gallery-item');
+    if (tiles.length >= PHOTOS.length + 1) {
+      // Distance from the first tile to the start of the second copy.
+      setWidth = tiles[PHOTOS.length].offsetLeft - tiles[0].offsetLeft;
+    }
+  }
+
+  function makeTile(photo, height) {
     var tile = document.createElement('figure');
     tile.className = 'tp-gallery-item';
-    // Reserve the exact box before the image loads so nothing reflows.
+    // Width derived from the photo's own proportions, so the box always
+    // matches the image exactly — nothing is cropped or stretched.
     tile.style.height = height + 'px';
     tile.style.width = Math.round(height * (photo.w / photo.h)) + 'px';
 
@@ -121,8 +113,6 @@
     img.loading = 'lazy';
     img.decoding = 'async';
     img.draggable = false;
-    // If a file is missing, keep the branded dark tile + caption rather than
-    // showing a broken-image icon.
     img.addEventListener('error', function () {
       tile.classList.add('is-missing');
       img.remove();
@@ -138,90 +128,101 @@
     return tile;
   }
 
-  function measure() {
-    rows.forEach(function (row) {
-      var half = (row.el.scrollWidth - GAP) / 2;
-      if (half > 0) {
-        row.half = half;
-        // Second row drifts slightly slower so the two never lock in step.
-        row.speed = (half / LOOP_SECONDS) * (rows.indexOf(row) === 1 ? 0.82 : 1);
-      }
-    });
-    // Offset the lower row so the rows read as staggered, not as a grid.
-    if (rows[1] && rows[1].half && rows[1].offset === 0) rows[1].offset = rows[1].half * 0.5;
-    apply();
-  }
+  var bound = false;
+  function bindOnce() {
+    if (bound) return;
+    bound = true;
 
-  function bindMarqueeEvents() {
-    root.addEventListener('mouseenter', function () { speedFactor = HOVER_FACTOR; });
+    root.addEventListener('mouseenter', function () { speedFactor = HOVER_SPEED; });
     root.addEventListener('mouseleave', function () { speedFactor = 1; });
 
-    var startX = 0, startOffsets = [];
+    // Mouse drag. Touch and trackpad already scroll natively.
+    var startX = 0, startPos = 0, moved = 0;
     root.addEventListener('pointerdown', function (e) {
-      dragging = true;
-      startX = e.clientX;
-      startOffsets = rows.map(function (r) { return r.offset; });
+      if (e.pointerType !== 'mouse') return;
+      dragging = true; tween = null; moved = 0;
+      startX = e.clientX; startPos = pos;
       root.classList.add('is-dragging');
-      root.setPointerCapture(e.pointerId);
     });
     root.addEventListener('pointermove', function (e) {
       if (!dragging) return;
       var dx = e.clientX - startX;
-      rows.forEach(function (r, i) { r.offset = startOffsets[i] - dx; });
+      moved = Math.abs(dx);
+      pos = startPos - dx;
       wrap(); apply();
+      if (moved > 3) e.preventDefault();
     });
-    ['pointerup', 'pointercancel'].forEach(function (evt) {
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (evt) {
       root.addEventListener(evt, function () {
         dragging = false;
         root.classList.remove('is-dragging');
       });
     });
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) stop();
-      else if (!prefersReducedMotion.matches && mode === 'marquee') start();
-    });
+    root.addEventListener('click', function (e) {
+      if (moved > 3) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
 
     var prev = document.getElementById('tpGalleryPrev');
     var next = document.getElementById('tpGalleryNext');
-    if (prev) prev.addEventListener('click', function () { nudge(-1); });
-    if (next) next.addEventListener('click', function () { nudge(1); });
+    if (prev) prev.addEventListener('click', function () { step(-1); });
+    if (next) next.addEventListener('click', function () { step(1); });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop();
+      else if (!reduceMotion.matches) start();
+    });
   }
 
-  function nudge(direction) {
-    if (mode !== 'marquee') return;
-    var step = Math.min(root.clientWidth * 0.6, 480) * direction;
-    var from = rows.map(function (r) { return r.offset; });
-    var startTime = null;
-    (function frame(now) {
-      if (startTime === null) startTime = now;
-      var t = Math.min((now - startTime) / 520, 1);
-      var eased = 1 - Math.pow(1 - t, 3);
-      rows.forEach(function (r, i) { r.offset = from[i] + step * eased; });
-      wrap(); apply();
-      if (t < 1) requestAnimationFrame(frame);
-    })(performance.now());
+  // Arrows advance to the neighbouring photograph, animated by hand so the
+  // drift and the jump never fight each other.
+  function step(direction) {
+    var tiles = [].slice.call(root.querySelectorAll('.tp-gallery-item'));
+    if (!tiles.length || !setWidth) return;
+    var origin = tiles[0].offsetLeft;
+    var stops = tiles.map(function (t) { return t.offsetLeft - origin; });
+
+    var target;
+    if (direction > 0) {
+      target = stops.find(function (s) { return s > pos + 1; });
+      if (target === undefined) target = pos + setWidth / PHOTOS.length;
+    } else {
+      var earlier = stops.filter(function (s) { return s < pos - 1; });
+      target = earlier.length ? earlier[earlier.length - 1] : pos - setWidth / PHOTOS.length;
+    }
+    tween = { from: pos, to: target, start: performance.now(),
+              ms: reduceMotion.matches ? 0 : ARROW_MS };
   }
 
   function wrap() {
-    rows.forEach(function (r) {
-      if (r.half <= 0) return;
-      r.offset = ((r.offset % r.half) + r.half) % r.half;
-    });
+    if (setWidth <= 0) return;
+    while (pos >= setWidth) pos -= setWidth;
+    while (pos < 0) pos += setWidth;
   }
 
   function apply() {
-    // Positive translate on a track that starts shifted one loop-length left
-    // makes the photographs travel left → right without ever showing an end.
-    rows.forEach(function (r) {
-      r.el.style.transform = 'translate3d(' + (r.offset - r.half) + 'px, 0, 0)';
-    });
+    root.scrollLeft = pos;
+    lastApplied = root.scrollLeft;
   }
 
   function tick(now) {
-    if (lastTime !== null && !dragging) {
+    if (lastTime !== null) {
       var dt = Math.min((now - lastTime) / 1000, 0.1); // clamp after a throttled tab
-      rows.forEach(function (r) { r.offset += r.speed * speedFactor * dt; });
+
+      // If scrollLeft moved without us (trackpad / touch swipe), adopt it.
+      if (!dragging && Math.abs(root.scrollLeft - lastApplied) > 1) {
+        pos = root.scrollLeft;
+        tween = null;
+      }
+
+      if (tween) {
+        var t = tween.ms ? Math.min((now - tween.start) / tween.ms, 1) : 1;
+        var eased = 1 - Math.pow(1 - t, 3);
+        pos = tween.from + (tween.to - tween.from) * eased;
+        if (t >= 1) tween = null;
+      } else if (!dragging) {
+        pos += SPEED * speedFactor * dt;
+      }
+
       wrap();
       apply();
     }
@@ -229,16 +230,8 @@
     rafId = requestAnimationFrame(tick);
   }
 
-  function start() {
-    if (rafId) return;
-    lastTime = null;
-    rafId = requestAnimationFrame(tick);
-  }
-
-  function stop() {
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = null;
-  }
+  function start() { if (rafId) return; lastTime = null; rafId = requestAnimationFrame(tick); }
+  function stop() { if (rafId) cancelAnimationFrame(rafId); rafId = null; }
 
   function debounce(fn, ms) {
     var t;

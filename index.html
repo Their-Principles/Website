@@ -22,53 +22,39 @@
   <div class="tp-nav-links">
     <a href="#story">Story</a>
     <a href="#experiences">Experiences</a>
-    <a href="#calendar">Calendar</a>
     <a href="mentors.html">Mentors</a>
     <a href="application.html">Membership</a>
+    <a href="contact.html">Contact</a>
   </div>
-  <a href="application.html" class="tp-nav-cta tp-nav-cta-desktop">Secure Your Place</a>
+  <a href="members.html" class="tp-nav-cta tp-nav-cta-desktop">Members Hub</a>
   <button class="tp-nav-toggle" id="tpNavToggle" aria-expanded="false" aria-controls="tpNavOverlay">Menu</button>
 </nav>
 
 <div class="tp-nav-overlay" id="tpNavOverlay">
   <a href="#story">Story</a>
   <a href="#experiences">Experiences</a>
-  <a href="#calendar">Calendar</a>
   <a href="mentors.html">Mentors</a>
   <a href="application.html">Membership</a>
-  <a href="application.html">Secure Your Place</a>
+  <a href="contact.html">Contact</a>
+  <a href="members.html">Members Hub</a>
 </div>
 
 <header class="tp-hero" id="top">
   <!-- TODO(client): add a real event photo —
        style="--tp-hero-photo:url('assets/images/hero/hero.jpg')" -->
   <div class="tp-hero-inner">
-    <div class="tp-hero-eyebrow">Private Membership · Miami · Est. 2026</div>
+    <div class="tp-hero-eyebrow">Private Community · Miami · Est. 2026</div>
     <h1>Their Principles</h1>
     <div class="tp-hero-divider"></div>
     <div class="tp-hero-tag">For the Young Ambitious</div>
-    <p class="tp-hero-sub">A private community for 18–25 year-olds, built to return an ambitious generation back to what really matters.</p>
-    <a href="application.html" class="tp-btn tp-btn-primary">Secure Your Place</a>
+    <p class="tp-hero-sub">A private community for 18–25 year-olds. Not here to network. Here to become.</p>
+    <a href="#story" class="tp-btn tp-btn-secondary">Learn More</a>
   </div>
 </header>
 
 <section class="tp-stats" aria-label="Their Principles, by the numbers">
-  <!-- Values come from communityStats in js/events.js — edit them there -->
+  <!-- Values come from communityStats in js/stats.js — edit them there -->
   <div class="tp-wrap" id="tpStats"></div>
-</section>
-
-<section class="tp-section" id="moments">
-  <div class="tp-wrap tp-moments-heading tp-reveal">
-    <div class="tp-eyebrow">A Look Back</div>
-    <h2>Recent Moments</h2>
-    <p>Scenes from the rooms we've already shared.</p>
-  </div>
-  <!-- Photo wall built by js/gallery.js — add or replace photographs there -->
-  <div class="tp-gallery tp-reveal" id="tpGallery" role="group" aria-label="Photographs from recent Their Principles gatherings"></div>
-  <div class="tp-gallery-nav">
-    <button class="tp-gallery-btn" id="tpGalleryPrev" aria-label="Move gallery backward">&#8249;</button>
-    <button class="tp-gallery-btn" id="tpGalleryNext" aria-label="Move gallery forward">&#8250;</button>
-  </div>
 </section>
 
 <section class="tp-section tp-story" id="story">
@@ -85,13 +71,21 @@
     </div>
     <div class="tp-reveal">
       <div class="tp-eyebrow">Who We Are</div>
-      <h2>The standard, not diluted.</h2>
-      <p class="tp-pull">"Their Principles is the community for 18 to 25 year olds, and only 18 to 25 year olds — built to return an ambitious generation back to what really matters."</p>
+      <h2>Built on principles, guided by community.</h2>
       <p>Our generation grew up through the pandemic, but the deeper challenge runs further than that: human nature itself — the pull of distraction, the drift of society, the patterns that quietly limit what we become. We exist to answer both.</p>
       <p>Nobody else combines these two things: genuine focus on the professional formation of ambitious individuals, and a room that is only ever people our own age. Every member is here to achieve real goals, chase real dreams, and fulfill their purpose professionally — while becoming a wise, centered, grounded, hard-working individual personally.</p>
       <p class="tp-story-shift">It isn't about knowing what to do. It's about having the room, the people, and the accountability — people your exact age, at your exact stage — to actually become it.</p>
+      <div class="tp-story-wordmark">Their Principles</div>
     </div>
   </div>
+
+  <!-- Photo carousel built by js/gallery.js — add or replace photographs there -->
+  <div class="tp-gallery tp-reveal" id="tpGallery" role="group" aria-label="Photographs from recent Their Principles gatherings"></div>
+  <div class="tp-gallery-nav">
+    <button class="tp-gallery-btn" id="tpGalleryPrev" aria-label="Move gallery backward">&#8249;</button>
+    <button class="tp-gallery-btn" id="tpGalleryNext" aria-label="Move gallery forward">&#8250;</button>
+  </div>
+
 </section>
 
 <section class="tp-section tp-experiences" id="experiences">
@@ -162,70 +156,12 @@
   </div>
 </section>
 
-<section class="tp-section" id="calendar">
-  <div class="tp-wrap">
-    <div class="tp-reveal">
-      <div class="tp-eyebrow">The Program</div>
-      <h2 style="font-family:var(--font-mark);font-weight:500;font-size:40px;margin-bottom:16px;">The Calendar</h2>
-      <p class="tp-calendar-intro">Every gathering, in one place. Members RSVP directly; a few seats are held for new applicants at each event.</p>
-    </div>
-    <div class="tp-cal-filters" role="group" aria-label="Filter events">
-      <button class="tp-cal-filter" data-filter="upcoming" aria-pressed="false">Upcoming</button>
-      <button class="tp-cal-filter" data-filter="past" aria-pressed="false">Past</button>
-    </div>
-    <!-- Rendered from the events array in js/events.js -->
-    <div class="tp-cal-list" id="tpCalList"></div>
-  </div>
-</section>
-
-<!-- Four-panel directory — Zero Bond-inspired identity moment.
-     Each panel's photograph is set in ONE place: the
-     "DIRECTORY PANEL IMAGERY" block at the top of css/components.css. -->
-<section class="tp-directory" aria-label="Directory">
-  <a class="tp-panel tp-panel--about" href="about.html">
-    <div class="tp-panel__image"></div>
-    <div class="tp-panel__overlay"></div>
-    <div class="tp-panel__content">
-      <div class="tp-panel-letters">T<br>P</div>
-      <div class="tp-panel-label">About</div>
-    </div>
-  </a>
-  <a class="tp-panel tp-panel--application" href="application.html">
-    <div class="tp-panel__image"></div>
-    <div class="tp-panel__overlay"></div>
-    <div class="tp-panel__content">
-      <div class="tp-panel-letters">A<br>P</div>
-      <div class="tp-panel-label">Application</div>
-    </div>
-  </a>
-  <a class="tp-panel tp-panel--contact" href="contact.html">
-    <div class="tp-panel__image"></div>
-    <div class="tp-panel__overlay"></div>
-    <div class="tp-panel__content">
-      <div class="tp-panel-letters">C<br>T</div>
-      <div class="tp-panel-label">Contact</div>
-    </div>
-  </a>
-  <a class="tp-panel tp-panel--members" href="members.html">
-    <div class="tp-panel__image"></div>
-    <div class="tp-panel__overlay"></div>
-    <div class="tp-panel__content">
-      <div class="tp-panel-letters">M<br>B</div>
-      <div class="tp-panel-label">Members</div>
-    </div>
-  </a>
-</section>
-
 <section class="tp-section tp-cta" id="join">
   <div class="tp-wrap">
     <div class="tp-reveal">
       <div class="tp-eyebrow">Membership Is by Application Only</div>
       <h2>Ready to Begin?</h2>
       <p class="tp-cta-intro">Choose the path that fits where you are right now.</p>
-    </div>
-
-    <div class="tp-cta-primary-wrap">
-      <a href="application.html" class="tp-btn tp-btn-primary">Secure Your Place</a>
     </div>
 
     <div class="tp-cta-doors">
@@ -258,8 +194,10 @@
 </footer>
 
 <script src="js/navigation.js" defer></script>
-<script src="js/gallery.js" defer></script>
+<!-- ?v= is a cache-buster: bump it whenever gallery.js changes so browsers
+     don't keep serving an old copy of the script. -->
+<script src="js/gallery.js?v=4" defer></script>
 <script src="js/experiences.js" defer></script>
-<script src="js/events.js" defer></script>
+<script src="js/stats.js" defer></script>
 </body>
 </html>

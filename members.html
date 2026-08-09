@@ -22,9 +22,11 @@
      the email and shows an honest "not open yet" state. See js/forms.js. -->
 <main class="tp-members-page">
   <div class="tp-members-visual">
-    <!-- TODO(client): set a real editorial photo via
-         style="--tp-members-photo:url('assets/images/hero/members.jpg')" -->
-    <a href="index.html" class="tp-brandmark">Their Principles</a>
+    <a href="index.html" class="tp-members-logo" aria-label="Their Principles — home">
+      <img src="assets/logo/tp-monogram-crestB.png" width="760" height="1172"
+           alt="Their Principles monogram">
+    </a>
+    <div class="tp-members-mark tp-brandmark">Their Principles</div>
   </div>
 
   <div class="tp-members-form-side">
@@ -36,7 +38,7 @@
           <input type="email" id="memberEmail" name="email" data-required autocomplete="email">
           <div class="tp-field-error">Please enter a valid email.</div>
         </div>
-        <button type="submit" class="tp-btn tp-btn-primary" style="width:100%;">Continue</button>
+        <button type="submit" class="tp-btn tp-btn-secondary" style="width:100%;">Continue</button>
       </form>
       <div class="tp-form-success"></div>
       <p class="tp-members-help">Trouble with access? <a href="contact.html">Contact us</a> and we'll sort it out.</p>

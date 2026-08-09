@@ -2,35 +2,50 @@
    Verified against the client's brand deck. This file is the single source of
    truth for color, type, spacing and motion. Do not introduce values outside it. */
 :root {
-  /* Brand colors — exact hex from the brand kit */
-  --tp-espresso: #280F09;   /* dark brown — primary dark surface + text on cream */
-  --tp-cream: #F0EFEA;      /* parchment — primary light surface */
-  --tp-burgundy: #441116;   /* accent — primary CTA, footer */
-  --tp-green: #151F0C;      /* dark green — four-panel directory */
+  /* ── THE ONE BRAND BACKGROUND ─────────────────────────────────────────────
+     Every background on the site references this variable. It is the exact
+     value taken from the homepage hero. To restyle the whole site, change
+     this single line — do not hardcode the hex anywhere else. */
+  --brand-burgundy: #280F09;
 
-  /* Muted gold — sparing use only: monogram letters, fine dividers,
-     hover states, selected labels. Never a dominant surface color. */
-  --tp-gold: #A8894E;
-  --tp-gold-dim: rgba(168, 137, 78, 0.55);
+  /* Brand colors — exact hex from the brand kit */
+  --tp-espresso: var(--brand-burgundy);  /* alias: same value, used for text/borders */
+  --tp-cream: #F0EFEA;      /* parchment — body copy and light accents on dark */
+  --tp-burgundy: #441116;   /* retained only for the Secure Your Place button */
+  /* --tp-green: #151F0C    removed — the directory panels now use --brand-burgundy.
+     Kept here as a record of the original brand kit, but must not be reintroduced. */
+
+  /* Formerly muted gold — headers, labels, dividers, hover states, selected
+     labels. Replaced site-wide with the brand cream per client direction. */
+  --tp-gold: #F0EFEA;
+  --tp-gold-dim: rgba(240, 239, 234, 0.55);
 
   /* Derived tints (computed for hover/border/dim states) */
   --tp-cream-dim: #E4E2D9;
   --tp-burgundy-light: #5A1A21;
-  --tp-ink-soft: #3A251D;             /* body text on cream, slightly warm */
-  --tp-ink-muted: #6B5847;            /* captions/meta on cream */
+
+  /* Text tokens. The site is now uniformly dark, so these are on-dark values —
+     the names are kept so existing rules and inline styles pick them up. */
+  --tp-ink-soft: rgba(240, 239, 234, 0.84);   /* body copy on the brand background */
+  --tp-ink-muted: rgba(240, 239, 234, 0.58);  /* captions, meta, secondary labels */
+
   --tp-cream-on-dark-70: rgba(240, 239, 234, 0.7);
   --tp-cream-on-dark-40: rgba(240, 239, 234, 0.4);
   --tp-hairline-on-dark: rgba(240, 239, 234, 0.14);
-  --tp-hairline-on-light: rgba(40, 15, 9, 0.12);
+  --tp-hairline-on-light: rgba(240, 239, 234, 0.14); /* now also sits on dark */
 
   /* Typography
      Cormorant Garamond + EB Garamond are the real brand fonts (free).
      Proxima Nova and Futura are commercial — Inter and Jost stand in until
      licensed. Swap only these two lines if a license is purchased. */
-  --font-mark: 'Cormorant Garamond', Georgia, serif;   /* brand mark + editorial display */
-  --font-body: 'EB Garamond', Georgia, serif;           /* body copy + italic statements */
-  --font-title: 'Inter', -apple-system, sans-serif;     /* clean headings (Proxima Nova stand-in) */
-  --font-cta: 'Jost', 'Futura', sans-serif;             /* CTAs, labels, dates, microcopy (Futura stand-in) */
+  --font-mark: 'Cormorant Garamond', Georgia, serif;   /* BRAND MARK only — the wordmark,
+                                                          monograms and display numerals */
+  --font-title: 'EB Garamond', Georgia, serif;          /* section headings + button text */
+  /* Body copy. Proxima Nova is a commercial font (Adobe Fonts / Mark Simonson) and is
+     NOT loaded — until it is licensed and self-hosted, Inter renders in its place.
+     Adding the licence + @font-face is the only step needed to switch it on. */
+  --font-body: 'Proxima Nova', 'Inter', -apple-system, sans-serif;
+  --font-cta: 'Jost', 'Futura', sans-serif;             /* small uppercase labels, nav, dates */
 
   /* Spacing scale — use these, not arbitrary values */
   --space-xs: 8px;

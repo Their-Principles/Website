@@ -14,42 +14,19 @@
   .tp-nav-links, .tp-nav-cta-desktop { display: none; }
   .tp-nav-toggle { display: block; }
 
-  /* Hero */
-  .tp-hero h1 { font-size: 40px; }
+  /* Hero — h1 size is handled by the fluid clamp in components.css */
   .tp-hero-inner { padding: 0 24px; }
 
   /* Stats */
   .tp-stats .tp-wrap { gap: var(--space-lg); flex-direction: column; }
 
-  /* Recent Moments: single swipe row; tile sizes are set by js/gallery.js.
-     Cap the width so a landscape photo can't fill the whole screen — leaving
-     the next photo peeking in is what signals the row is swipeable.
+  /* Recent Moments: tile sizes come from js/gallery.js. No width cap here —
+     capping width while height is fixed would break each photo's proportions.
      Arrow controls would only clutter a swipeable row. */
   .tp-gallery-nav { display: none; }
-  .tp-gallery.is-scroll .tp-gallery-item { max-width: 78vw; }
 
   /* Experiences */
   .tp-exp-inner { grid-template-columns: 1fr; gap: 10px; padding: var(--space-lg) 0; }
-
-  /* Calendar: date + title stay visible, meta wraps below */
-  .tp-cal-row { grid-template-columns: 84px 1fr; gap: 8px var(--space-sm); }
-  .tp-cal-date { grid-row: span 2; }
-  .tp-cal-loc, .tp-status { grid-column: 2; text-align: left; }
-
-  /* Directory: four stacked immersive sections. There is no hover on touch,
-     so each panel shows its photograph by default behind a heavier scrim. */
-  .tp-directory { grid-template-columns: 1fr; min-height: auto; }
-  .tp-panel {
-    min-height: 60vh;
-    border-right: none;
-    border-bottom: 1px solid rgba(240, 239, 234, 0.08);
-  }
-  .tp-panel:last-child { border-bottom: none; }
-  .tp-panel__image { opacity: 1; transform: none; }
-  .tp-panel__overlay { background-color: rgba(21, 31, 12, 0.62); }
-  .tp-panel__overlay::after { opacity: 1; }
-  .tp-panel-letters { font-size: 60px; }
-  .tp-panel-label { bottom: 30px; }
 
   /* CTA */
   .tp-cta-doors { flex-direction: column; }
@@ -62,6 +39,7 @@
   .tp-contact-info { order: -1; }
   .tp-members-page { grid-template-columns: 1fr; }
   .tp-members-visual { min-height: 34vh; padding: var(--space-lg); }
+  .tp-members-logo img { max-height: 30vh; width: auto; }
   .tp-mentor-grid { grid-template-columns: 1fr 1fr; }
 }
 

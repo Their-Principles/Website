@@ -2,8 +2,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--tp-cream);
-  color: var(--tp-espresso);
+  background: var(--brand-burgundy);
+  color: var(--tp-cream);
   font-family: var(--font-body);
   font-size: 18px;
   line-height: 1.6;
@@ -16,14 +16,14 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; color: inherit; }
 ul { list-style: none; }
 
-::selection { background: #441116; color: #F0EFEA; }
+::selection { background: var(--tp-gold); color: var(--brand-burgundy); }
 
 /* Subtle desktop scrollbar */
 @media (pointer: fine) {
   ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: var(--tp-cream); }
-  ::-webkit-scrollbar-thumb { background: rgba(40, 15, 9, 0.28); border-radius: 5px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(40, 15, 9, 0.45); }
+  ::-webkit-scrollbar-track { background: var(--brand-burgundy); }
+  ::-webkit-scrollbar-thumb { background: rgba(240, 239, 234, 0.24); border-radius: 5px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(240, 239, 234, 0.4); }
 }
 
 h1, h2, h3 { font-family: var(--font-title); font-weight: 600; letter-spacing: -0.01em; line-height: 1.1; }
@@ -34,7 +34,7 @@ h1, h2, h3 { font-family: var(--font-title); font-weight: 600; letter-spacing: -
   text-transform: uppercase;
   letter-spacing: 0.14em;
 }
-.tp-eyebrow { font-size: 11px; color: var(--tp-burgundy); margin-bottom: 14px; }
+.tp-eyebrow { font-size: 12px; font-weight: 600; color: var(--tp-cream); margin-bottom: 14px; }
 
 /* Focus visibility — never remove, only restyle */
 :focus-visible {
@@ -45,6 +45,7 @@ h1, h2, h3 { font-family: var(--font-title); font-weight: 600; letter-spacing: -
 /* Buttons — rectangular, uppercase microtype, restrained */
 .tp-btn {
   display: inline-block;
+  font-family: var(--font-title); /* buttons use the heading face */
   font-size: 12px;
   padding: 15px 34px;
   border-radius: var(--tp-radius);
@@ -69,10 +70,10 @@ h1, h2, h3 { font-family: var(--font-title); font-weight: 600; letter-spacing: -
 }
 .tp-btn-secondary:hover, .tp-btn-secondary:focus-visible { background: var(--tp-cream); color: var(--tp-espresso); border-color: var(--tp-cream); }
 .tp-btn-outline-dark {
-  color: var(--tp-espresso);
-  border-color: rgba(40, 15, 9, 0.35);
+  color: var(--tp-cream);
+  border-color: rgba(240, 239, 234, 0.4);
 }
-.tp-btn-outline-dark:hover, .tp-btn-outline-dark:focus-visible { background: var(--tp-espresso); color: var(--tp-cream); border-color: var(--tp-espresso); }
+.tp-btn-outline-dark:hover, .tp-btn-outline-dark:focus-visible { background: var(--tp-cream); color: var(--brand-burgundy); border-color: var(--tp-cream); }
 
 /* Forms — editorial and minimal */
 .tp-field { margin-bottom: var(--space-md); }
@@ -90,7 +91,7 @@ h1, h2, h3 { font-family: var(--font-title); font-weight: 600; letter-spacing: -
   width: 100%;
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(128, 110, 90, 0.45);
+  border-bottom: 1px solid rgba(240, 239, 234, 0.34);
   color: inherit;
   font-family: var(--font-body);
   font-size: 17px;
@@ -107,7 +108,7 @@ h1, h2, h3 { font-family: var(--font-title); font-weight: 600; letter-spacing: -
   font-family: var(--font-cta);
   font-size: 11px;
   letter-spacing: 0.06em;
-  color: #B04A4A;
+  color: #E08A8A;
   margin-top: 6px;
   min-height: 16px; /* reserve space so errors don't shift layout */
   visibility: hidden;
